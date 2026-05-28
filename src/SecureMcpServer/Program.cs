@@ -204,6 +204,45 @@ app.MapPost("/auth/token", (DemoTokenService tokenService, [FromBody] TokenReque
     return Results.Ok(new { access_token = token, token_type = "Bearer" });
 });
 
+// === MCP Tool Discovery Endpoint (added for better agent flow) ===
+app.MapGet("/mcp/tools", (ClaimsPrincipal? user) =>
+{
+    if (user == null || !user.HasClaim("scope", "mcp:tools"))
+    {
+        return Results.Json(new { error = "Unauthorized - mcp:tools scope required" }, statusCode: 401);
+    }
+
+    var tools = new object[]
+    {
+        new
+        {
+            name = "get_component_security_profile",
+            description = "Return security profile for a component",
+            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" } }, required = new[] { "componentName" } }
+        },
+        new
+        {
+            name = "check_known_vulnerabilities",
+            description = "Return known vulnerability findings for a component and version",
+            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" }, version = new { type = "string" } }, required = new[] { "componentName", "version" } }
+        },
+        new
+        {
+            name = "generate_security_assessment",
+            description = "Generate deterministic risk assessment",
+            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" }, criticality = new { type = "string" }, networkExposure = new { type = "string" }, handlesSensitiveData = new { type = "boolean" }, findingCount = new { type = "integer" }, highestSeverity = new { type = "string" } }, required = new[] { "componentName" } }
+        },
+        new
+        {
+            name = "create_release_security_summary",
+            description = "Generate release recommendation based on profile + vulnerabilities",
+            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" }, releaseVersion = new { type = "string" } }, required = new[] { "componentName", "releaseVersion" } }
+        }
+    };
+
+    return Results.Json(new { tools });
+}).RequireAuthorization("McpAccess");
+
 app.Run();
 
 record TokenRequest(string ClientId, string[] Scopes);
