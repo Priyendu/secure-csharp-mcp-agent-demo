@@ -1,0 +1,14 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+launchSettings.json
+appsettings.Development.json
+demo-data.json
+*.log
+.env
+secrets.json
+.idea/
+*.sln.docstates
+node_modules/

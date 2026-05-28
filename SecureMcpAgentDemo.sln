@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{59D4A767-4441-4F4D-B153-3B804B63110C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureMcpServer", "src\SecureMcpServer\SecureMcpServer.csproj", "{2E1F8132-09E9-44B1-B8AA-FEC784027E30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureMcpClient", "src\SecureMcpClient\SecureMcpClient.csproj", "{F2EBBE18-E479-4A40-BDCE-F521E7E30841}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{421BA72B-CB03-41F3-91A8-AB1CFA188144}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureMcpServer.Tests", "tests\SecureMcpServer.Tests\SecureMcpServer.Tests.csproj", "{4BB4154A-1DAB-4FB0-93D1-01C37FC77590}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureMcpClient.Tests", "tests\SecureMcpClient.Tests\SecureMcpClient.Tests.csproj", "{6E19CEBE-BA96-4A82-9888-1B4111B46E11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E1F8132-09E9-44B1-B8AA-FEC784027E30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E1F8132-09E9-44B1-B8AA-FEC784027E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E1F8132-09E9-44B1-B8AA-FEC784027E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E1F8132-09E9-44B1-B8AA-FEC784027E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2EBBE18-E479-4A40-BDCE-F521E7E30841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2EBBE18-E479-4A40-BDCE-F521E7E30841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2EBBE18-E479-4A40-BDCE-F521E7E30841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2EBBE18-E479-4A40-BDCE-F521E7E30841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB4154A-1DAB-4FB0-93D1-01C37FC77590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB4154A-1DAB-4FB0-93D1-01C37FC77590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB4154A-1DAB-4FB0-93D1-01C37FC77590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB4154A-1DAB-4FB0-93D1-01C37FC77590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E19CEBE-BA96-4A82-9888-1B4111B46E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E19CEBE-BA96-4A82-9888-1B4111B46E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E19CEBE-BA96-4A82-9888-1B4111B46E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E19CEBE-BA96-4A82-9888-1B4111B46E11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2E1F8132-09E9-44B1-B8AA-FEC784027E30} = {59D4A767-4441-4F4D-B153-3B804B63110C}
+		{F2EBBE18-E479-4A40-BDCE-F521E7E30841} = {59D4A767-4441-4F4D-B153-3B804B63110C}
+		{4BB4154A-1DAB-4FB0-93D1-01C37FC77590} = {421BA72B-CB03-41F3-91A8-AB1CFA188144}
+		{6E19CEBE-BA96-4A82-9888-1B4111B46E11} = {421BA72B-CB03-41F3-91A8-AB1CFA188144}
+	EndGlobalSection
+EndGlobal
