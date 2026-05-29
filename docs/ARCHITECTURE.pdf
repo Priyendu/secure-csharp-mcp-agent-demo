@@ -1,442 +1,277 @@
 %PDF-1.4
 %‚„œ”
 1 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<< /Length 2475 >>
-stream
-BT
-/F1 9 Tf
-50 790 Td
-12 TL
-(SECURE C# MCP AGENT DEMO - ARCHITECTURE) Tj
-T*
-() Tj
-T*
-(Version: 1.2) Tj
-T*
-(Audience: Security engineers and .NET architects) Tj
-T*
-(Date: May 2026) Tj
-T*
-(Status: Demo / educational) Tj
-T*
-() Tj
-T*
-(Executive Summary) Tj
-T*
-() Tj
-T*
-(This project demonstrates a secure-by-default shape for a small MCP-style release-) Tj
-T*
-(  assessment server, a rule-based console client, and an end-to-end web release-review) Tj
-T*
-(  agent. It is built with .NET 8 and focuses on auth boundaries, scope checks, consistent) Tj
-T*
-(  tool discovery, auditable tool calls, optional LLM-assisted reasoning, and negative-path) Tj
-T*
-(  tests.) Tj
-T*
-() Tj
-T*
-(The system is not production-ready identity infrastructure. The token issuer and secrets) Tj
-T*
-(  are intentionally local demo mechanisms.) Tj
-T*
-() Tj
-T*
-(Components) Tj
-T*
-() Tj
-T*
-(| Component | Responsibility | Security control |) Tj
-T*
-(| --- | --- | --- |) Tj
-T*
-(| `SecureMcpServer` | ASP.NET Core Minimal API host for auth, SSE, JSON-RPC messages,) Tj
-T*
-(  and tool discovery | JWT bearer auth and scope policies |) Tj
-T*
-(| `DemoTokenService` | Issues and validates demo JWTs | issuer, audience, signing key,) Tj
-T*
-(  lifetime validation |) Tj
-T*
-(| `ReleaseDataService` | Serves release status, dependencies, vulnerability data, and) Tj
-T*
-(  release approval | checks `mcp:tools:release` before approval |) Tj
-T*
-(| `SecurityAuditLogger` | Logs auth success/failure, tool calls, and tool errors |) Tj
-T*
-(  structured application logs |) Tj
-T*
-(| `SecureMcpClient` | Console client with a simple rule-based planner | obtains token) Tj
-T*
-(  and delegates auth decisions to the server |) Tj
-T*
-(| `SecureMcpAgentWeb` | Browser UI and agent API for release review demos | calls MCP) Tj
-T*
-(  tools through JWT-scoped requests |) Tj
-T*
-(| `OpenAiReleasePlanner` | Optional OpenAI Responses API client for intent parsing and) Tj
-T*
-(  summary generation | no direct release authority; falls back deterministically |) Tj
-T*
-(| `demo-data.json` | Self-contained release data for deterministic responses | copied to) Tj
-T*
-(  build output |) Tj
-T*
-() Tj
-T*
-(End-to-End Flow) Tj
-T*
-() Tj
-T*
-(```text) Tj
-T*
-(Browser UI) Tj
-T*
-(  |) Tj
-T*
-(  | POST /api/review { query, approvalMode }) Tj
-T*
-(  v) Tj
-T*
-(SecureMcpAgentWeb) Tj
-T*
-(  |) Tj
-T*
-(  | optional OpenAI call for intent parsing) Tj
-T*
-(  | fallback parser if OPENAI_API_KEY is absent) Tj
-T*
-(  v) Tj
-T*
-(Structured release intent) Tj
-ET
-endstream
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+<< /Length 2363 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Professional architecture overview - Web UI, LLM agent, secured MCP tool server) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 34 Tf 42.0 468.0 Td (Architecture Document) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 13 Tf 42.0 435.0 Td (Version 1.3 | May 2026 | Demo / educational) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 250.0 230.0 115.0 re B Q
+q 0.0431 0.4196 0.4353 rg 42.0 357.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 335.0 Td (Design Goals) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 315.0 Td (Demonstrable release review UI) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 303.0 Td (LLM-assisted parsing and synthesis) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 291.0 Td (MCP server remains source of truth) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 279.0 Td (Authorization is visible and) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 267.0 Td (testable) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 306.0 250.0 230.0 115.0 re B Q
+q 0.1451 0.4510 0.3059 rg 306.0 357.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 320.0 335.0 Td (Security Boundary) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 315.0 Td (The model cannot approve a release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 303.0 Td (approve_release requires) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 291.0 Td (mcp:tools:release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 279.0 Td (All tool calls are auditable) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 570.0 250.0 230.0 115.0 re B Q
+q 0.6039 0.3569 0.0000 rg 570.0 357.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 584.0 335.0 Td (Demo Modes) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 315.0 Td (AnalyzerService: ready) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 303.0 Td (PaymentGateway: blocked by CVE) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 291.0 Td (Privileged mode: approval ticket) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 42.0 145.0 Td (The web agent may call OpenAI for structured intent parsing and final narrative, but every verdict is grounded in MCP tool results.) Tj ET
+endstream
 endobj
 4 0 obj
-<< /Length 2347 >>
-stream
-BT
-/F1 9 Tf
-50 790 Td
-12 TL
-(  |) Tj
-T*
-(  | POST /auth/token) Tj
-T*
-(  | POST /mcp/messages tools/call) Tj
-T*
-(  v) Tj
-T*
-(SecureMcpServer) Tj
-T*
-(  |) Tj
-T*
-(  | get_release_status) Tj
-T*
-(  | get_dependencies) Tj
-T*
-(  | check_security_vulnerabilities) Tj
-T*
-(  | approve_release when eligible) Tj
-T*
-(  v) Tj
-T*
-(SecureMcpAgentWeb) Tj
-T*
-(  |) Tj
-T*
-(  | optional OpenAI summary) Tj
-T*
-(  | deterministic verdict from tool results) Tj
-T*
-(  v) Tj
-T*
-(Browser verdict, recommendation, tool trace, raw JSON) Tj
-T*
-(```) Tj
-T*
-() Tj
-T*
-(The model helps parse and explain. It does not bypass MCP authorization, and it does not) Tj
-T*
-(  determine whether release approval actually succeeded.) Tj
-T*
-() Tj
-T*
-(Endpoint Model) Tj
-T*
-() Tj
-T*
-(| Endpoint | Method | Purpose | Auth |) Tj
-T*
-(| --- | --- | --- | --- |) Tj
-T*
-(| `/auth/token` | POST | Demo-only JWT issuance | validates requested scopes and demo) Tj
-T*
-(  release secret |) Tj
-T*
-(| `/mcp/sse` | GET | SSE endpoint advertisement | requires `mcp:tools` |) Tj
-T*
-(| `/mcp/messages` | POST | JSON-RPC `tools/list` and `tools/call` | requires) Tj
-T*
-(  `mcp:tools`; `approve_release` also requires `mcp:tools:release` |) Tj
-T*
-(| `/mcp/tools` | GET | Declarative tool discovery | requires `mcp:tools` |) Tj
-T*
-(| `/api/config` | GET | Web agent runtime mode | none |) Tj
-T*
-(| `/api/review` | POST | End-to-end release review orchestration | calls MCP server with) Tj
-T*
-(  scoped JWT |) Tj
-T*
-() Tj
-T*
-(The SSE endpoint advertises `/mcp/messages` without embedding the bearer token in the) Tj
-T*
-(  URL. Clients should continue to send the token in the `Authorization` header.) Tj
-T*
-() Tj
-T*
-(Tool Contract) Tj
-T*
-() Tj
-T*
-(`/mcp/tools` and `tools/list` expose the same four implemented tools:) Tj
-T*
-() Tj
-T*
-(| Tool | Purpose | Required arguments | Additional scope |) Tj
-T*
-(| --- | --- | --- | --- |) Tj
-T*
-(| `get_release_status` | Returns release readiness and approvers | `component`,) Tj
-T*
-(  `version` | none |) Tj
-T*
-(| `get_dependencies` | Returns component dependencies | `component`, `version` | none |) Tj
-T*
-(| `check_security_vulnerabilities` | Returns demo vulnerability findings | `component`,) Tj
-T*
-(  `version` | none |) Tj
-T*
-(| `approve_release` | Approves a release and returns an approval ticket | `component`,) Tj
-T*
-(  `version` | `mcp:tools:release` |) Tj
-ET
-endstream
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
 endobj
 5 0 obj
-<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+<< /Length 3767 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (System overview) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 360.0 150.0 95.0 re B Q
+q 0.0431 0.4196 0.4353 rg 42.0 447.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 425.0 Td (Browser UI) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 405.0 Td (Release question) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 393.0 Td (Verdict) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 381.0 Td (Tool trace) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 369.0 Td (Raw JSON) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 250.0 360.0 180.0 95.0 re B Q
+q 0.0431 0.4196 0.4353 rg 250.0 447.0 180.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 264.0 425.0 Td (SecureMcpAgentWeb) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 405.0 Td (POST /api/review) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 393.0 Td (Planner orchestration) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 381.0 Td (Deterministic verdict) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 488.0 440.0 160.0 80.0 re B Q
+q 0.1451 0.4510 0.3059 rg 488.0 512.0 160.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 502.0 490.0 Td (OpenAI Responses API) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 470.0 Td (Optional structured outputs) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 458.0 Td (Intent + summary) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 488.0 300.0 160.0 80.0 re B Q
+q 0.6039 0.3569 0.0000 rg 488.0 372.0 160.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 502.0 350.0 Td (Fallback Planner) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 330.0 Td (Offline parser) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 318.0 Td (Deterministic summary) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 706.0 360.0 150.0 95.0 re B Q
+q 0.0431 0.4196 0.4353 rg 706.0 447.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 720.0 425.0 Td (SecureMcpServer) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 405.0 Td (JWT validation) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 393.0 Td (Scope checks) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 381.0 Td (MCP tools) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 706.0 205.0 150.0 95.0 re B Q
+q 0.1451 0.4510 0.3059 rg 706.0 292.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 720.0 270.0 Td (Release Data) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 250.0 Td (demo-data.json) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 238.0 Td (Ready + blocked cases) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 192.0 408.0 m 250.0 408.0 l S Q
+q 0.0431 0.4196 0.4353 rg 250.0 408.0 m 243.0 412.0 l 243.0 404.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [6 4] 0 d 430.0 415.0 m 488.0 480.0 l S Q
+q 0.0431 0.4196 0.4353 rg 488.0 480.0 m 481.0 484.0 l 481.0 476.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [6 4] 0 d 430.0 390.0 m 488.0 340.0 l S Q
+q 0.0431 0.4196 0.4353 rg 488.0 340.0 m 481.0 344.0 l 481.0 336.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 648.0 480.0 m 706.0 420.0 l S Q
+q 0.0431 0.4196 0.4353 rg 706.0 420.0 m 699.0 424.0 l 699.0 416.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 430.0 408.0 m 706.0 408.0 l S Q
+q 0.0431 0.4196 0.4353 rg 706.0 408.0 m 699.0 412.0 l 699.0 404.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 781.0 360.0 m 781.0 300.0 l S Q
+q 0.0431 0.4196 0.4353 rg 781.0 300.0 m 774.0 304.0 l 774.0 296.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 13 Tf 250.0 235.0 Td (Key principle: the LLM assists with language; the MCP server enforces authorization and tool execution.) Tj ET
+endstream
 endobj
 6 0 obj
-<< /Length 1646 >>
-stream
-BT
-/F1 9 Tf
-50 790 Td
-12 TL
-() Tj
-T*
-(Auth Flow) Tj
-T*
-() Tj
-T*
-(```text) Tj
-T*
-(Client) Tj
-T*
-(  |) Tj
-T*
-(  | POST /auth/token { clientId, scopes, clientSecret? }) Tj
-T*
-(  v) Tj
-T*
-(SecureMcpServer) Tj
-T*
-(  |) Tj
-T*
-(  | validate requested scopes) Tj
-T*
-(  | require demo-release-secret for mcp:tools:release) Tj
-T*
-(  v) Tj
-T*
-(JWT access token) Tj
-T*
-() Tj
-T*
-(Client) Tj
-T*
-(  |) Tj
-T*
-(  | Authorization: Bearer <token>) Tj
-T*
-(  | POST /mcp/messages tools/call) Tj
-T*
-(  v) Tj
-T*
-(SecureMcpServer) Tj
-T*
-(  |) Tj
-T*
-(  | validate JWT) Tj
-T*
-(  | require mcp:tools) Tj
-T*
-(  | require mcp:tools:release for approve_release) Tj
-T*
-(  | audit call) Tj
-T*
-(  v) Tj
-T*
-(JSON-RPC result or JSON-RPC error) Tj
-T*
-(```) Tj
-T*
-() Tj
-T*
-(Negative paths:) Tj
-T*
-() Tj
-T*
-(- missing or invalid token returns 401) Tj
-T*
-(- valid token without `mcp:tools` returns 403) Tj
-T*
-(- `approve_release` without `mcp:tools:release` returns 403) Tj
-T*
-(- privileged token issuance without the demo release secret returns 403) Tj
-T*
-(- unknown scopes return 400) Tj
-T*
-() Tj
-T*
-(Data Flow) Tj
-T*
-() Tj
-T*
-(`ReleaseDataService` loads `demo-data.json` from the server output directory. If the) Tj
-T*
-(  file is not present, it falls back to an embedded default payload so the demo remains) Tj
-T*
-(  runnable during local experiments.) Tj
-T*
-() Tj
-T*
-(Current demo releases:) Tj
-T*
-() Tj
-T*
-(- `AnalyzerService` `2.4.1`: ready, no vulnerabilities) Tj
-T*
-(- `PaymentGateway` `5.8.0`: blocked, includes `CVE-DEMO-2026-0001`) Tj
-T*
-() Tj
-T*
-(Testing Strategy) Tj
-T*
-() Tj
-T*
-(The server tests use `WebApplicationFactory<Program>` to exercise the actual ASP.NET) Tj
-ET
-endstream
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
 endobj
 7 0 obj
-<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
-endobj
-8 0 obj
-<< /Length 1214 >>
+<< /Length 3307 >>
 stream
-BT
-/F1 9 Tf
-50 790 Td
-12 TL
-(  Core pipeline. Coverage includes token issuance constraints, release-scope) Tj
-T*
-(  authorization, tool discovery consistency, and demo data responses.) Tj
-T*
-() Tj
-T*
-(The client tests cover the rule-based planner's known and fallback parsing paths. The) Tj
-T*
-(  web-agent tests cover the deterministic parser and static UI smoke path.) Tj
-T*
-() Tj
-T*
-(Run:) Tj
-T*
-() Tj
-T*
-(```bash) Tj
-T*
-(dotnet test --configuration Release) Tj
-T*
-(```) Tj
-T*
-() Tj
-T*
-(Production Hardening) Tj
-T*
-() Tj
-T*
-(For real deployment:) Tj
-T*
-() Tj
-T*
-(1. Replace `/auth/token` with OAuth2/OIDC through a trusted provider.) Tj
-T*
-(2. Replace symmetric demo signing with RSA or ECDSA and key rotation.) Tj
-T*
-(3. Store secrets in a managed secret store.) Tj
-T*
-(4. Add rate limiting, request-size limits, and stricter JSON-RPC validation.) Tj
-T*
-(5. Store audit logs in a tamper-resistant sink.) Tj
-T*
-(6. Add end-to-end tests for the intended MCP transport and client behavior.) Tj
-T*
-(7. Replace demo fallback parsing with a reviewed production planner if this is adapted) Tj
-T*
-(  outside a demo.) Tj
-T*
-() Tj
-T*
-(This architecture document is for educational and demonstration purposes only.) Tj
-ET
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Sequence diagram - Release review) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 80.0 482.0 Td (Browser) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 115.0 468.0 m 115.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 115.0 115.0 m 108.0 119.0 l 108.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 235.0 482.0 Td (Agent API) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 270.0 468.0 m 270.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 270.0 115.0 m 263.0 119.0 l 263.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 395.0 482.0 Td (Planner/LLM) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 430.0 468.0 m 430.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 430.0 115.0 m 423.0 119.0 l 423.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 565.0 482.0 Td (MCP Server) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 600.0 468.0 m 600.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 600.0 115.0 m 593.0 119.0 l 593.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 720.0 482.0 Td (Release Tools) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 755.0 468.0 m 755.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 755.0 115.0 m 748.0 119.0 l 748.0 111.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 130.0 455.0 m 300.0 455.0 l S Q
+q 0.0431 0.4196 0.4353 rg 300.0 455.0 m 293.0 459.0 l 293.0 451.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 138.0 464.0 Td (1. POST /api/review) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [6 4] 0 d 285.0 410.0 m 460.0 410.0 l S Q
+q 0.0431 0.4196 0.4353 rg 460.0 410.0 m 453.0 414.0 l 453.0 406.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 419.0 Td (2. parse intent) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 365.0 m 630.0 365.0 l S Q
+q 0.0431 0.4196 0.4353 rg 630.0 365.0 m 623.0 369.0 l 623.0 361.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 374.0 Td (3. request JWT) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 320.0 m 630.0 320.0 l S Q
+q 0.0431 0.4196 0.4353 rg 630.0 320.0 m 623.0 324.0 l 623.0 316.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 329.0 Td (4. tools/call status, deps, vulns) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 630.0 275.0 m 785.0 275.0 l S Q
+q 0.0431 0.4196 0.4353 rg 785.0 275.0 m 778.0 279.0 l 778.0 271.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 638.0 284.0 Td (5. execute tool logic) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 230.0 m 630.0 230.0 l S Q
+q 0.0431 0.4196 0.4353 rg 630.0 230.0 m 623.0 234.0 l 623.0 226.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 239.0 Td (6. conditional approve_release) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 630.0 185.0 m 285.0 185.0 l S Q
+q 0.0431 0.4196 0.4353 rg 285.0 185.0 m 292.0 189.0 l 292.0 181.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 194.0 Td (7. tool trace + auth result) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 140.0 m 130.0 140.0 l S Q
+q 0.0431 0.4196 0.4353 rg 130.0 140.0 m 137.0 144.0 l 137.0 136.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 138.0 149.0 Td (8. verdict + recommendation) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 11 Tf 42.0 70.0 Td (Approval is attempted only when release status is ready and no vulnerability findings are returned.) Tj ET
 endstream
 endobj
+8 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
 9 0 obj
-<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+<< /Length 3554 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Authorization boundaries) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 70.0 360.0 220.0 105.0 re B Q
+q 0.1451 0.4510 0.3059 rg 70.0 457.0 220.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 84.0 435.0 Td (Standard Token) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 415.0 Td (scope: mcp:tools) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 403.0 Td (Can read release state) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 391.0 Td (Cannot approve release) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 70.0 190.0 220.0 115.0 re B Q
+q 0.6039 0.3569 0.0000 rg 70.0 297.0 220.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 84.0 275.0 Td (Privileged Demo Token) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 255.0 Td (scope: mcp:tools) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 243.0 Td (scope: mcp:tools:release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 231.0 Td (Requires demo release secret) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 385.0 360.0 230.0 105.0 re B Q
+q 0.0431 0.4196 0.4353 rg 385.0 457.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 399.0 435.0 Td (Read Tools) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 415.0 Td (get_release_status) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 403.0 Td (get_dependencies) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 391.0 Td (check_security_vulnerabilities) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 385.0 190.0 230.0 115.0 re B Q
+q 0.0431 0.4196 0.4353 rg 385.0 297.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 399.0 275.0 Td (Approval Tool) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 255.0 Td (approve_release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 243.0 Td (Returns ticket only with release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 231.0 Td (scope) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 219.0 Td (403 otherwise) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 675.0 270.0 150.0 120.0 re B Q
+q 0.6588 0.1961 0.1961 rg 675.0 382.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 689.0 360.0 Td (Audit + Outcomes) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 340.0 Td (Auth events) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 328.0 Td (Tool calls) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 316.0 Td (403 errors) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 304.0 Td (Blocked CVEs) Tj ET
+q 0.1451 0.4510 0.3059 RG 1.5 w [] 0 d 290.0 415.0 m 385.0 415.0 l S Q
+q 0.1451 0.4510 0.3059 rg 385.0 415.0 m 378.0 419.0 l 378.0 411.0 l f Q
+q 0.6039 0.3569 0.0000 RG 1.5 w [] 0 d 290.0 230.0 m 385.0 250.0 l S Q
+q 0.6039 0.3569 0.0000 rg 385.0 250.0 m 378.0 254.0 l 378.0 246.0 l f Q
+q 0.6588 0.1961 0.1961 RG 1.5 w [6 4] 0 d 290.0 390.0 m 385.0 250.0 l S Q
+q 0.6588 0.1961 0.1961 rg 385.0 250.0 m 378.0 254.0 l 378.0 246.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 615.0 415.0 m 675.0 335.0 l S Q
+q 0.0431 0.4196 0.4353 rg 675.0 335.0 m 668.0 339.0 l 668.0 331.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 615.0 250.0 m 675.0 335.0 l S Q
+q 0.0431 0.4196 0.4353 rg 675.0 335.0 m 668.0 339.0 l 668.0 331.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F1 11 Tf 42.0 88.0 Td (This boundary is intentionally visible in the UI: standard mode produces Needs Approval Scope; privileged mode can produce Approved.) Tj ET
+endstream
 endobj
 10 0 obj
-<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R] /Count 4 >>
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
 endobj
 11 0 obj
-<< /Type /Catalog /Pages 10 0 R >>
+<< /Length 2507 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Runbook and hardening) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 360.0 230.0 110.0 re B Q
+q 0.0431 0.4196 0.4353 rg 42.0 462.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 440.0 Td (Run Locally) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 420.0 Td (1. Start SecureMcpServer) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 408.0 Td (2. Start SecureMcpAgentWeb) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 396.0 Td (3. Open http://localhost:5080) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 384.0 Td (4. Try ready, blocked, approve) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 306.0 360.0 230.0 110.0 re B Q
+q 0.1451 0.4510 0.3059 rg 306.0 462.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 320.0 440.0 Td (Configuration) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 420.0 Td (OPENAI_API_KEY optional) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 408.0 Td (OPENAI_MODEL default gpt-4o-mini) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 396.0 Td (MCP_SERVER_URL) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 384.0 Td (DEMO_RELEASE_CLIENT_SECRET) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 570.0 360.0 230.0 110.0 re B Q
+q 0.6039 0.3569 0.0000 rg 570.0 462.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 584.0 440.0 Td (Validation) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 420.0 Td (dotnet restore) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 408.0 Td (dotnet build -c Release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 396.0 Td (dotnet test -c Release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 384.0 Td (Browser smoke checks) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 260.0 Td (Production hardening) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 230.0 Td (- Replace demo token endpoint with OAuth2/OIDC.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 206.0 Td (- Use asymmetric JWT signing and key rotation.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 182.0 Td (- Move secrets to managed secret storage.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 158.0 Td (- Send audit logs to an immutable sink.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 134.0 Td (- Add request limits, rate limiting, and full MCP transport tests.) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 11 0 R >>
+endobj
+13 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R] /Count 5 >>
+endobj
+14 0 obj
+<< /Type /Catalog /Pages 13 0 R >>
 endobj
 xref
-0 12
+0 15
 0000000000 65535 f 
 0000000015 00000 n 
-0000000083 00000 n 
-0000002610 00000 n 
-0000002737 00000 n 
-0000005136 00000 n 
-0000005263 00000 n 
-0000006961 00000 n 
-0000007088 00000 n 
-0000008354 00000 n 
-0000008481 00000 n 
-0000008557 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000002575 00000 n 
+0000002712 00000 n 
+0000006531 00000 n 
+0000006668 00000 n 
+0000010027 00000 n 
+0000010164 00000 n 
+0000013770 00000 n 
+0000013908 00000 n 
+0000016468 00000 n 
+0000016607 00000 n 
+0000016691 00000 n 
 trailer
-<< /Size 12 /Root 11 0 R >>
+<< /Size 15 /Root 14 0 R >>
 startxref
-8608
+16742
 %%EOF

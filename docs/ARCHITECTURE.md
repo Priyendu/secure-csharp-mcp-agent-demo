@@ -1,6 +1,6 @@
 # Secure C# MCP Agent Demo - Architecture
 
-Version: 1.2  
+Version: 1.3
 Audience: Security engineers and .NET architects  
 Date: May 2026  
 Status: Demo / educational
@@ -10,6 +10,12 @@ Status: Demo / educational
 This project demonstrates a secure-by-default shape for a small MCP-style release-assessment server, a rule-based console client, and an end-to-end web release-review agent. It is built with .NET 8 and focuses on auth boundaries, scope checks, consistent tool discovery, auditable tool calls, optional LLM-assisted reasoning, and negative-path tests.
 
 The system is not production-ready identity infrastructure. The token issuer and secrets are intentionally local demo mechanisms.
+
+## Diagram Artifacts
+
+- `docs/architecture-diagrams.drawio` contains the editable Draw.io source with system overview, release review sequence, and authorization boundary diagrams.
+- `docs/ARCHITECTURE.pdf` is the polished PDF version generated from the same architecture model.
+- `tools/generate_architecture_assets.py` regenerates both diagram artifacts.
 
 ## Components
 
@@ -57,6 +63,30 @@ Browser verdict, recommendation, tool trace, raw JSON
 ```
 
 The model helps parse and explain. It does not bypass MCP authorization, and it does not determine whether release approval actually succeeded.
+
+## Release Review Sequence
+
+```text
+Browser UI         Agent API          Planner/LLM         MCP Server         Release Tools
+    |                  |                  |                  |                  |
+    | POST /api/review |                  |                  |                  |
+    |----------------->|                  |                  |                  |
+    |                  | parse intent     |                  |                  |
+    |                  |----------------->|                  |                  |
+    |                  | structured JSON  |                  |                  |
+    |                  |<-----------------|                  |                  |
+    |                  | request JWT      |                  |                  |
+    |                  |------------------------------------>|                  |
+    |                  | tool calls       |                  |                  |
+    |                  |------------------------------------>| execute tools    |
+    |                  |                  |                  |----------------->|
+    |                  | tool trace       |                  |                  |
+    |                  |<------------------------------------|                  |
+    | verdict + trace  |                  |                  |                  |
+    |<-----------------|                  |                  |                  |
+```
+
+Approval is attempted only when status is `ready` and no vulnerability findings are returned. Whether approval succeeds is determined by the MCP server's `mcp:tools:release` scope check.
 
 ## Endpoint Model
 
