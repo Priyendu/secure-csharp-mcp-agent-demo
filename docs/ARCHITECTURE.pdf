@@ -1,136 +1,277 @@
 %PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
+%âãÏÓ
 1 0 obj
-<<
-/F1 2 0 R /F2 3 0 R /F3 5 0 R /F4 6 0 R /F5 7 0 R /F6 9 0 R
->>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
 endobj
 2 0 obj
-<<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
->>
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
 3 0 obj
-<<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
->>
+<< /Length 2363 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Professional architecture overview - Web UI, LLM agent, secured MCP tool server) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 34 Tf 42.0 468.0 Td (Architecture Document) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 13 Tf 42.0 435.0 Td (Version 1.3 | May 2026 | Demo / educational) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 250.0 230.0 115.0 re B Q
+q 0.0431 0.4196 0.4353 rg 42.0 357.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 335.0 Td (Design Goals) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 315.0 Td (Demonstrable release review UI) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 303.0 Td (LLM-assisted parsing and synthesis) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 291.0 Td (MCP server remains source of truth) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 279.0 Td (Authorization is visible and) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 267.0 Td (testable) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 306.0 250.0 230.0 115.0 re B Q
+q 0.1451 0.4510 0.3059 rg 306.0 357.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 320.0 335.0 Td (Security Boundary) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 315.0 Td (The model cannot approve a release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 303.0 Td (approve_release requires) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 291.0 Td (mcp:tools:release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 279.0 Td (All tool calls are auditable) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 570.0 250.0 230.0 115.0 re B Q
+q 0.6039 0.3569 0.0000 rg 570.0 357.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 584.0 335.0 Td (Demo Modes) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 315.0 Td (AnalyzerService: ready) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 303.0 Td (PaymentGateway: blocked by CVE) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 291.0 Td (Privileged mode: approval ticket) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 42.0 145.0 Td (The web agent may call OpenAI for structured intent parsing and final narrative, but every verdict is grounded in MCP tool results.) Tj ET
+endstream
 endobj
 4 0 obj
-<<
-/Contents 14 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
 endobj
 5 0 obj
-<<
-/BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
->>
+<< /Length 3767 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (System overview) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 360.0 150.0 95.0 re B Q
+q 0.0431 0.4196 0.4353 rg 42.0 447.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 425.0 Td (Browser UI) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 405.0 Td (Release question) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 393.0 Td (Verdict) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 381.0 Td (Tool trace) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 369.0 Td (Raw JSON) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 250.0 360.0 180.0 95.0 re B Q
+q 0.0431 0.4196 0.4353 rg 250.0 447.0 180.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 264.0 425.0 Td (SecureMcpAgentWeb) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 405.0 Td (POST /api/review) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 393.0 Td (Planner orchestration) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 381.0 Td (Deterministic verdict) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 488.0 440.0 160.0 80.0 re B Q
+q 0.1451 0.4510 0.3059 rg 488.0 512.0 160.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 502.0 490.0 Td (OpenAI Responses API) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 470.0 Td (Optional structured outputs) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 458.0 Td (Intent + summary) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 488.0 300.0 160.0 80.0 re B Q
+q 0.6039 0.3569 0.0000 rg 488.0 372.0 160.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 502.0 350.0 Td (Fallback Planner) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 330.0 Td (Offline parser) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 502.0 318.0 Td (Deterministic summary) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 706.0 360.0 150.0 95.0 re B Q
+q 0.0431 0.4196 0.4353 rg 706.0 447.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 720.0 425.0 Td (SecureMcpServer) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 405.0 Td (JWT validation) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 393.0 Td (Scope checks) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 381.0 Td (MCP tools) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 706.0 205.0 150.0 95.0 re B Q
+q 0.1451 0.4510 0.3059 rg 706.0 292.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 720.0 270.0 Td (Release Data) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 250.0 Td (demo-data.json) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 720.0 238.0 Td (Ready + blocked cases) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 192.0 408.0 m 250.0 408.0 l S Q
+q 0.0431 0.4196 0.4353 rg 250.0 408.0 m 243.0 412.0 l 243.0 404.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [6 4] 0 d 430.0 415.0 m 488.0 480.0 l S Q
+q 0.0431 0.4196 0.4353 rg 488.0 480.0 m 481.0 484.0 l 481.0 476.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [6 4] 0 d 430.0 390.0 m 488.0 340.0 l S Q
+q 0.0431 0.4196 0.4353 rg 488.0 340.0 m 481.0 344.0 l 481.0 336.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 648.0 480.0 m 706.0 420.0 l S Q
+q 0.0431 0.4196 0.4353 rg 706.0 420.0 m 699.0 424.0 l 699.0 416.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 430.0 408.0 m 706.0 408.0 l S Q
+q 0.0431 0.4196 0.4353 rg 706.0 408.0 m 699.0 412.0 l 699.0 404.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 781.0 360.0 m 781.0 300.0 l S Q
+q 0.0431 0.4196 0.4353 rg 781.0 300.0 m 774.0 304.0 l 774.0 296.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 13 Tf 250.0 235.0 Td (Key principle: the LLM assists with language; the MCP server enforces authorization and tool execution.) Tj ET
+endstream
 endobj
 6 0 obj
-<<
-/BaseFont /Courier-Bold /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font
->>
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
 endobj
 7 0 obj
-<<
-/BaseFont /Symbol /Name /F5 /Subtype /Type1 /Type /Font
->>
+<< /Length 3307 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Sequence diagram - Release review) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 80.0 482.0 Td (Browser) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 115.0 468.0 m 115.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 115.0 115.0 m 108.0 119.0 l 108.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 235.0 482.0 Td (Agent API) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 270.0 468.0 m 270.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 270.0 115.0 m 263.0 119.0 l 263.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 395.0 482.0 Td (Planner/LLM) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 430.0 468.0 m 430.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 430.0 115.0 m 423.0 119.0 l 423.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 565.0 482.0 Td (MCP Server) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 600.0 468.0 m 600.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 600.0 115.0 m 593.0 119.0 l 593.0 111.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F2 11 Tf 720.0 482.0 Td (Release Tools) Tj ET
+q 0.8510 0.8353 0.7922 RG 1.5 w [] 0 d 755.0 468.0 m 755.0 115.0 l S Q
+q 0.8510 0.8353 0.7922 rg 755.0 115.0 m 748.0 119.0 l 748.0 111.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 130.0 455.0 m 300.0 455.0 l S Q
+q 0.0431 0.4196 0.4353 rg 300.0 455.0 m 293.0 459.0 l 293.0 451.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 138.0 464.0 Td (1. POST /api/review) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [6 4] 0 d 285.0 410.0 m 460.0 410.0 l S Q
+q 0.0431 0.4196 0.4353 rg 460.0 410.0 m 453.0 414.0 l 453.0 406.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 419.0 Td (2. parse intent) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 365.0 m 630.0 365.0 l S Q
+q 0.0431 0.4196 0.4353 rg 630.0 365.0 m 623.0 369.0 l 623.0 361.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 374.0 Td (3. request JWT) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 320.0 m 630.0 320.0 l S Q
+q 0.0431 0.4196 0.4353 rg 630.0 320.0 m 623.0 324.0 l 623.0 316.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 329.0 Td (4. tools/call status, deps, vulns) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 630.0 275.0 m 785.0 275.0 l S Q
+q 0.0431 0.4196 0.4353 rg 785.0 275.0 m 778.0 279.0 l 778.0 271.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 638.0 284.0 Td (5. execute tool logic) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 230.0 m 630.0 230.0 l S Q
+q 0.0431 0.4196 0.4353 rg 630.0 230.0 m 623.0 234.0 l 623.0 226.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 239.0 Td (6. conditional approve_release) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 630.0 185.0 m 285.0 185.0 l S Q
+q 0.0431 0.4196 0.4353 rg 285.0 185.0 m 292.0 189.0 l 292.0 181.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 293.0 194.0 Td (7. tool trace + auth result) Tj ET
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 285.0 140.0 m 130.0 140.0 l S Q
+q 0.0431 0.4196 0.4353 rg 130.0 140.0 m 137.0 144.0 l 137.0 136.0 l f Q
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 138.0 149.0 Td (8. verdict + recommendation) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 11 Tf 42.0 70.0 Td (Approval is attempted only when release status is ready and no vulnerability findings are returned.) Tj ET
+endstream
 endobj
 8 0 obj
-<<
-/Contents 15 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
 endobj
 9 0 obj
-<<
-/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F6 /Subtype /Type1 /Type /Font
->>
+<< /Length 3554 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Authorization boundaries) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 70.0 360.0 220.0 105.0 re B Q
+q 0.1451 0.4510 0.3059 rg 70.0 457.0 220.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 84.0 435.0 Td (Standard Token) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 415.0 Td (scope: mcp:tools) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 403.0 Td (Can read release state) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 391.0 Td (Cannot approve release) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 70.0 190.0 220.0 115.0 re B Q
+q 0.6039 0.3569 0.0000 rg 70.0 297.0 220.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 84.0 275.0 Td (Privileged Demo Token) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 255.0 Td (scope: mcp:tools) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 243.0 Td (scope: mcp:tools:release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 84.0 231.0 Td (Requires demo release secret) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 385.0 360.0 230.0 105.0 re B Q
+q 0.0431 0.4196 0.4353 rg 385.0 457.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 399.0 435.0 Td (Read Tools) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 415.0 Td (get_release_status) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 403.0 Td (get_dependencies) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 391.0 Td (check_security_vulnerabilities) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 385.0 190.0 230.0 115.0 re B Q
+q 0.0431 0.4196 0.4353 rg 385.0 297.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 399.0 275.0 Td (Approval Tool) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 255.0 Td (approve_release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 243.0 Td (Returns ticket only with release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 231.0 Td (scope) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 399.0 219.0 Td (403 otherwise) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 675.0 270.0 150.0 120.0 re B Q
+q 0.6588 0.1961 0.1961 rg 675.0 382.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 689.0 360.0 Td (Audit + Outcomes) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 340.0 Td (Auth events) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 328.0 Td (Tool calls) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 316.0 Td (403 errors) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 689.0 304.0 Td (Blocked CVEs) Tj ET
+q 0.1451 0.4510 0.3059 RG 1.5 w [] 0 d 290.0 415.0 m 385.0 415.0 l S Q
+q 0.1451 0.4510 0.3059 rg 385.0 415.0 m 378.0 419.0 l 378.0 411.0 l f Q
+q 0.6039 0.3569 0.0000 RG 1.5 w [] 0 d 290.0 230.0 m 385.0 250.0 l S Q
+q 0.6039 0.3569 0.0000 rg 385.0 250.0 m 378.0 254.0 l 378.0 246.0 l f Q
+q 0.6588 0.1961 0.1961 RG 1.5 w [6 4] 0 d 290.0 390.0 m 385.0 250.0 l S Q
+q 0.6588 0.1961 0.1961 rg 385.0 250.0 m 378.0 254.0 l 378.0 246.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 615.0 415.0 m 675.0 335.0 l S Q
+q 0.0431 0.4196 0.4353 rg 675.0 335.0 m 668.0 339.0 l 668.0 331.0 l f Q
+q 0.0431 0.4196 0.4353 RG 1.5 w [] 0 d 615.0 250.0 m 675.0 335.0 l S Q
+q 0.0431 0.4196 0.4353 rg 675.0 335.0 m 668.0 339.0 l 668.0 331.0 l f Q
+BT 0.0941 0.1255 0.1373 rg /F1 11 Tf 42.0 88.0 Td (This boundary is intentionally visible in the UI: standard mode produces Needs Approval Scope; privileged mode can produce Approved.) Tj ET
+endstream
 endobj
 10 0 obj
-<<
-/Contents 16 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 13 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 /Trans <<
-
->> 
-  /Type /Page
->>
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
 endobj
 11 0 obj
-<<
-/PageMode /UseNone /Pages 13 0 R /Type /Catalog
->>
+<< /Length 2507 >>
+stream
+q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Runbook and hardening) Tj ET
+q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 360.0 230.0 110.0 re B Q
+q 0.0431 0.4196 0.4353 rg 42.0 462.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 440.0 Td (Run Locally) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 420.0 Td (1. Start SecureMcpServer) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 408.0 Td (2. Start SecureMcpAgentWeb) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 396.0 Td (3. Open http://localhost:5080) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 384.0 Td (4. Try ready, blocked, approve) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 306.0 360.0 230.0 110.0 re B Q
+q 0.1451 0.4510 0.3059 rg 306.0 462.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 320.0 440.0 Td (Configuration) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 420.0 Td (OPENAI_API_KEY optional) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 408.0 Td (OPENAI_MODEL default gpt-4o-mini) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 396.0 Td (MCP_SERVER_URL) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 384.0 Td (DEMO_RELEASE_CLIENT_SECRET) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 570.0 360.0 230.0 110.0 re B Q
+q 0.6039 0.3569 0.0000 rg 570.0 462.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 584.0 440.0 Td (Validation) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 420.0 Td (dotnet restore) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 408.0 Td (dotnet build -c Release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 396.0 Td (dotnet test -c Release) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 384.0 Td (Browser smoke checks) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 260.0 Td (Production hardening) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 230.0 Td (- Replace demo token endpoint with OAuth2/OIDC.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 206.0 Td (- Use asymmetric JWT signing and key rotation.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 182.0 Td (- Move secrets to managed secret storage.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 158.0 Td (- Send audit logs to an immutable sink.) Tj ET
+BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 58.0 134.0 Td (- Add request limits, rate limiting, and full MCP transport tests.) Tj ET
+endstream
 endobj
 12 0 obj
-<<
-/Author (\(anonymous\)) /CreationDate (D:20260528045517+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260528045517+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (\(anonymous\)) /Trapped /False
->>
+<< /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 11 0 R >>
 endobj
 13 0 obj
-<<
-/Count 3 /Kids [ 4 0 R 8 0 R 10 0 R ] /Type /Pages
->>
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R] /Count 5 >>
 endobj
 14 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 820
->>
-stream
-Gatm9?#Q2d'Re<2\C.1PSVlqR@.145dtaondLC%HIA,RG9ED'2<(h`>CdYM(9fGM0OGq-V3qqKP$j#]9'$dc`pln-n7=\4U++S=K+hrbG5'`ZW(?#]8V;ld<'-ScZQZ"\S!G'EG;.)#NJWk#Pm#?UTGAqUXKCcWg/R5;F6NlSL>guf>eiR.%Z>[DGM'.0Qq+o'rpj,"n\]g/20(50R<m2;?*T((VHK1N)82H4'OM^\db/D9MoJf,>':BIuKOlu3>YgLr,$sp&:KKHgU-QW'r-8`<3-U_2)6:7$h4T`#g]Q]*cuAirTFm>29^i8@_0KsMm5lCVQ6[@-LZb'Z[P^59,9tE"F7[[:Aj^SOcir,8Nu$+O3u.j+$$GXG\"k:k>a#XS)"jP\C.e_QZW\gh]!/S[5sIU8h(\=;?)],Tkglb@(1p$??0W`kS[^Q4SN8FqUeKu01s7UGKcK8RZk\sWWM99a;\bP?g2F)!]Bd)?SHJ^Dbs@l9k8u\u]j3Tj>m:jQi1mn^Y;Y@rY"ej7bimC0&P`UsakPk;l!_.1Jl7m@?ki&B_bDNoWLoa>bg-\jJN#X^9HZ;cRZ>8@=c25R@a;fr`9HKt17c=o0=nBY[kf:S)u`I5IkNE'OqK#NZ0-O8qpc`lHOLF"X6gh&mC[>%lN>uSbM%!M3sM2+!+V*#pWI,VNs7Lsh@sauR&3@ga%fq\Ql'"J,k#)ks&]"N3*`[B9WNVMBsBc)Le(@."hRG#<NU@E>A_q]o4(=qY]eQFN8o2#(]?KHFVE(p]iK"#a+JW3Z<J#T'fG)&$EB#aSJsB_Mf-E7PMa,nTr.~>endstream
-endobj
-15 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1644
->>
-stream
-Gb!#[gJ['$&:N^l\gg]/Z%.p*=7ZX9,b)T8ZW:XEr%c?'Ha8gS4-K(o?_<pPABQ_D!Kp't#$7eedXA^Ql';boIVesI:'#5V\@f/a-4nG<G"idIHPf1!hbIoZW!idWYFh;e(P]k^m]Tlo%<d/G5et2V.2W^6Q]f2S#C%)GiHi>G!cD-jhu^&m]]96S$annn`+>s-:UXu.6M(LN+4P_@6et%9%LAY1+$HJ/#,J[#2tX[alrt$G^.H1-LiK0*ZpNbs%[bPW[t518^`rs5L<i*CT(PYZ(S:K7Tk>"n#n?uXCSD=s/^M:Tck*dK%ArUH:>g5'[QqHIGt5[D'ki7KbRE6Zd<A!Pi(nT(RANr$p71Q^D7A?X]>+p,%2_Yr#],=JQnWZ::8"Gd[.Hj@^ke:=LKO`EN9.>*O":Nn;9bM>=j2E)'/148NS6*-Jj.N%X7SQ2),"?cZ@[KX?n=_i@ZeIU^na_$lV3?P#38HA0g%(X21\rR>=4\_]6L,3RmEQ`jVZMOnQ>@XJ2K!G@"'"_&=S"Iq#e)0:_WC`;JqbW`ha"i"GK.UaU=CY,,rZS6ILJI=1u'HjB+J8--&q<[=\I.NhZ%HcJY$B&^[gc@^nOt"W(;VD]Xg:K8HlAaoAHd;kq@_BlHf,eQ!b\P'6pkLSIMG,YJuGhVD(Bm9%`,ogXa[d+@B<(QaHlJnGH&F.c+!UJiH>atI-uLd^+c!t!ieI&(YJEPrYdE<@b]XTZ[J4,!8>_7G"0f,$]Xr:ba6M(P[W"O/Z-C]I,5:k27Lf<R&8bCLu!Q/JEd8%e>nK[>b7M,J)2hE!tZRV[!Y&<2R5L:W=O/`bN/,1aH,o6el+CPTJJceb*sn<NA;qCC<n!i7E0WQOJe/1Q#4P#muF<s5QFp(4DS>1X8FDG#]qf9<JjY+\+o$u<kT_.5=LfJ`ESO.-m^.t/#:f]qVr]^qb>_RrKSQD&Pq@6&]cQ!D_4U25c>Y+n5@^M9A?T`8b%Lr<A\.GQpA/;1>^;6;PH-nr]i0e$0S+Z5h!A^.QlUo=*cmWcEr\5"Q9s(ld"k-jI0Ek7>h7;WmQE0':PJDIC9W#mZJXVrV!Z=!l[82(P(Z<JnZ%2:AVMbLN.2+cj[R:!nr+Q_mVC8k33b64Ka9VRL(dhUFtc5W;8ju._1#ODnYao%PUTpD,]AS@c<+DmLAEBPIQ&$=AS%iJ05C8r#K;"EJZ_$P<+V/,YrB#VQnmD+MF0.,KH0]T%5!uubO^BcJ.K<N",(t?O_Wa`L6TPrTj^Z'oPEPeh)m2[KB%>&^/>]'A(?DrH4[W%7A3#`?QeY;>J@uAsphd%1EaJ"g=p:PY;!?H$qqU?2)o^pB5FiEWJ15YmXR-pN&U5AsaIckP'AglnV./=g1qg!o/e%m)`("Z9h1Wh)F6fX-MBSJWP;-AmCO/uG>bdF1l?GEMMFKQ'DkZfC7T$Ydoq3`n87(R;J26YN?T6n"fr2muDg<G0g1kunEYH\nf(\S-dj,Z(kRO>\[W*6rEke"b6[69@jekK<mq+;o;.9C/=gD\f<Lic\*aR-Xn=hcm,Df+e.ea;'-<r"`]n$%Rk(?ed+2#^PHS3Ig6Vr+iGXgMJZ,d5b1(i&*CBm<1WMIJZi*@30PDQC2CW7/A*OjYndSJ^;G03eTdL]~>endstream
-endobj
-16 0 obj
-<<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 1900
->>
-stream
-Gau`T=``=U&:XAWfU9H%)%.VgJqr5'>>C^N:aDodnVi5L+cA(Y&<pH"q_#ZOOtAD&SXGLSM$*)s^:b>Y@,Zm0mjJ9_'>W[d!bDooJ_J%shucZ*POBmdNi+g`ijA$i(7rQ_GktY#Ba39`G8YA\aC)B:dCPK[nJckgR)/Thb\O_Q=TN"lYG,#pbG`tpQUS:,o]Cl@lP0Q[+F($7gC\2t0(Bh%D+2df3sg:ip'[V_L`Hk.@1hYt*pVFW6[RXgV^6<A\;p&TjTeaj.qhUbBoO_9WU=/9Su)_(bi?!"nle=*^TS<h*5X$rP8N0V)8JU;YFo2n0R+pG]Tk:qU@PB<MH$u&h#S`s;,KpeF.(0ITsV,,$5<cU>(q)sjJp\RdKi?O*%-%m9[h$'_r-Yi<?qC^d<hbF24c0$j/rX(pNA)Y/<=eeJT0MOE0n(dq)6d+cS_2/K?\5l_-"a1K]Qt`W';:'Z^qa?caTkA!:ap`@eet>.bp$d2[1R;R/K*t[Pob!%B*\*JUq_PKsg0L'32msY!iN^q'J5%D7ghuAnH&"m2bbCj3SVYg,FeTOF_YT<QF\`#\NR'euL"O@H^%ebM_E:*TD,ZK0gDhPAjg2-?X;]o4+-kn[RI4Hn'.C2ksJmTZGU&Ro`*V$]bSJ&O#%<o--.fl;0fq+i'i^,)kT>;Fdh)W.u_,Hg:Q'HO^.3$OhQOqX*n\#2:GaO2c1K&2L4!(7QP#HQ4W\O)T4'BZZ<>!sp!?$fHC?AO(3qUS[u^HaM9mmD3'p>p#MkCPn@hD$p_bq8\)@&^J(Umr1iZ?lPS;g,9CAJ/f,/^"]73<U)aHIlegjZ!@`9h/.2&pb"0qR(pTlGj(&`f&j>g:17S^Xa\gS>I/LO])>"o\sE$TCb#T<:Uc:Dh(%!TDA=8*<O@1`MN?RCgB)!CGn_L>2Fs:7/J:gL(1Zscm<j1WdBO]!Nt\]Kk"iI.?27p"8%VZ/f!3SO[dFd2^imqDWE^:6`"Ej._%"`Q'SsXUGPRHe^]N!#FZ$"U/l'V)Vi`+!d;#j8R/UA,9#aAJP_MoO%d^k2Cjj+hSpj%4[qhJ7l\]nl^5\#O`2]-T[n7/`8c<ml!P_=Vk<8Hl0aF1,:+s/0Se!#U8hak>ob=3&!lpd/#kJnmYRWt@>Tq&jpP3jsIJta>McMUE^V.sOL\u>%:32pZr^m`3,+m1-H\u,,0nj2%a%:`X?s-GgoVbYWaYJ]\,:eK>aIjG(rO"9+aD8?Z:5J:'.6T[4f&KZZZHA=m;<San&p:C5T*j,"[(&c'61FecHo2!O`h2?rhXLGffH6C.C:(s!X,^@r=]dg.f&\Btfak[B>=f5a<'3(F,51!eVDcIKfq05@Ud]C_:73nP>WJ.?6pABhA0$fG^AZ7]HnQ'2\(]aOQrQSfNf::4_CCk^G2dnq$>NBNa8M(((p">RZ+dX(mo*;:qA_cR6Q;e1j(J?9&E'(m/CLnMd&<]`Y:Eo?_Ff!HHu.4=fi(#59T)C]eEUjH,C;@7GNZ[fWbnFd8iAsqa()tW2O`l'9VU$?<m=o^M?lSZ^;M/iI#iDc!],i69#`1[#@T@d&m/Kq\CIUXl>`9VE"8WK;]O"hW\D_td+Ns4?s9aLWI>Dn(4?LVl`<dV\X;BYCog,Dd"t__b6i$0.e*j\/lRCba'AWj(s_.Y[*9ag1+_,B"l2mpfLT"$G>JtOK+N_5&dSlh0Mlo"2Ri?]f1t]F=BnWdU.Z85]$Bb?@J\sW;b`/mANK/o`a9RpVLjNhjkS(G&1Zo"&nCOPWbT[F):kiS#>sC!b'%_^U7U+XIK.F@+$FYBH%"+G^-!CuO^(uL)!C:pQ!rBJ70_rHMg*dhoHO&kT9:a[/jTjb(5hDI$quS@j%-;hWZ:%]4V%/.Pd+!?::9WK&ZqdHndd%bFu0~>endstream
+<< /Type /Catalog /Pages 13 0 R >>
 endobj
 xref
-0 17
+0 15
 0000000000 65535 f 
-0000000061 00000 n 
-0000000142 00000 n 
-0000000249 00000 n 
-0000000361 00000 n 
-0000000566 00000 n 
-0000000671 00000 n 
-0000000781 00000 n 
-0000000858 00000 n 
-0000001063 00000 n 
-0000001178 00000 n 
-0000001384 00000 n 
-0000001454 00000 n 
-0000001735 00000 n 
-0000001808 00000 n 
-0000002719 00000 n 
-0000004455 00000 n 
+0000000015 00000 n 
+0000000085 00000 n 
+0000000160 00000 n 
+0000002575 00000 n 
+0000002712 00000 n 
+0000006531 00000 n 
+0000006668 00000 n 
+0000010027 00000 n 
+0000010164 00000 n 
+0000013770 00000 n 
+0000013908 00000 n 
+0000016468 00000 n 
+0000016607 00000 n 
+0000016691 00000 n 
 trailer
-<<
-/ID 
-[<789fd6fdb6d72b8ae97eff2373d6920d><789fd6fdb6d72b8ae97eff2373d6920d>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 12 0 R
-/Root 11 0 R
-/Size 17
->>
+<< /Size 15 /Root 14 0 R >>
 startxref
-6447
+16742
 %%EOF

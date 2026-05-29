@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SecureMcpClient;
 
-class Program
+public class Program
 {
     static async Task Main(string[] args)
     {
@@ -50,12 +50,13 @@ class Program
     {
         var req = new { ClientId = "demo-client", Scopes = new[] { "mcp:tools" } };
         var resp = await client.PostAsJsonAsync("/auth/token", req);
+        resp.EnsureSuccessStatusCode();
         var json = await resp.Content.ReadAsStringAsync();
         var doc = JsonSerializer.Deserialize<JsonElement>(json);
         return doc.GetProperty("access_token").GetString()!;
     }
 
-    static (string, string) ParseQuery(string query)
+    public static (string Component, string Version) ParseQuery(string query)
     {
         // Very simple rule-based extraction
         if (query.Contains("AnalyzerService"))
@@ -79,15 +80,9 @@ class Program
             }
         };
 
-        try
-        {
-            var resp = await client.PostAsJsonAsync("/mcp/messages", payload);
-            var body = await resp.Content.ReadAsStringAsync();
-            Console.WriteLine($"Response: {body}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
-        }
+        var resp = await client.PostAsJsonAsync("/mcp/messages", payload);
+        var body = await resp.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response: {body}");
+        resp.EnsureSuccessStatusCode();
     }
 }

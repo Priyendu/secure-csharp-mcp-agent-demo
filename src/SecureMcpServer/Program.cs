@@ -4,9 +4,11 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
-// using SecureMcpServer.Mcp; // commented - MCP namespace not separate
 using SecureMcpServer.Security;
 using SecureMcpServer.Tools;
+
+const string DemoReleaseSecret = "demo-release-secret";
+string[] supportedScopes = ["mcp:tools", "mcp:tools:release"];
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -105,7 +107,7 @@ app.MapGet("/mcp/sse", async (HttpContext context, DemoTokenService tokenService
 
     // Send initial connection event
     await stream.WriteAsync(Encoding.UTF8.GetBytes("event: endpoint\n"));
-    await stream.WriteAsync(Encoding.UTF8.GetBytes($"data: /mcp/messages?token={token}\n\n"));
+    await stream.WriteAsync(Encoding.UTF8.GetBytes("data: /mcp/messages\n\n"));
     await stream.FlushAsync();
 
     // Keep connection alive
@@ -132,35 +134,56 @@ app.MapPost("/mcp/messages", async (HttpContext context,
     var token = authHeader.Substring("Bearer ".Length);
     var principal = tokenService.ValidateToken(token);
     
-    if (principal == null || !principal.HasClaim("scope", "mcp:tools"))
+    if (principal == null)
     {
         return Results.Unauthorized();
     }
 
+    if (!principal.HasClaim("scope", "mcp:tools"))
+    {
+        logger.LogAuthFailure("Messages", "Insufficient scope");
+        return Results.Json(JsonRpcError(0, 403, "Forbidden - missing mcp:tools scope"), statusCode: StatusCodes.Status403Forbidden);
+    }
+
     using var reader = new StreamReader(context.Request.Body);
     var body = await reader.ReadToEndAsync();
-    var request = JsonSerializer.Deserialize<JsonElement>(body);
+    JsonElement request;
+    try
+    {
+        request = JsonSerializer.Deserialize<JsonElement>(body);
+    }
+    catch (JsonException ex)
+    {
+        logger.LogError("messages", ex.Message);
+        return Results.Json(JsonRpcError(0, -32700, "Invalid JSON-RPC payload"), statusCode: StatusCodes.Status400BadRequest);
+    }
     
     var method = request.GetProperty("method").GetString();
     var id = request.TryGetProperty("id", out var idProp) ? idProp.GetInt32() : 0;
     
     logger.LogToolCall(method ?? "unknown", principal.Identity?.Name ?? "unknown");
 
-    object result = method switch
+    object result;
+    if (method == "tools/list")
     {
-        "tools/list" => new
+        result = new
         {
-            tools = new object[]
-            {
-                new { name = "get_release_status", description = "Get release status for a component" },
-                new { name = "get_dependencies", description = "List dependencies for a component version" },
-                new { name = "check_security_vulnerabilities", description = "Check for known CVEs" },
-                new { name = "approve_release", description = "Approve release (requires release scope)" }
-            }
-        },
-        "tools/call" => await HandleToolCall(request, principal, releaseService, logger),
-        _ => new { error = "Unknown method" }
-    };
+            tools = GetToolDefinitions()
+        };
+    }
+    else if (method == "tools/call")
+    {
+        result = await HandleToolCall(request, principal, releaseService, logger);
+    }
+    else
+    {
+        return Results.Json(JsonRpcError(id, -32601, "Unknown method"), statusCode: StatusCodes.Status400BadRequest);
+    }
+
+    if (result is ToolCallFailure failure)
+    {
+        return Results.Json(JsonRpcError(id, failure.Code, failure.Message), statusCode: failure.StatusCode);
+    }
 
     return Results.Json(new { jsonrpc = "2.0", id, result });
 }).RequireAuthorization("McpAccess");
@@ -183,11 +206,19 @@ async Task<object> HandleToolCall(JsonElement request, ClaimsPrincipal principal
             "check_security_vulnerabilities" => releaseService.CheckVulnerabilities(
                 args.GetProperty("component").GetString()!,
                 args.GetProperty("version").GetString()!),
-            "approve_release" => await releaseService.ApproveReleaseAsync(
-                args.GetProperty("component").GetString()!,
-                args.GetProperty("version").GetString()!,
-                principal),
-            _ => new { error = "Unknown tool" }
+            "approve_release" when principal.HasClaim("scope", "mcp:tools:release") =>
+                await releaseService.ApproveReleaseAsync(
+                    args.GetProperty("component").GetString()!,
+                    args.GetProperty("version").GetString()!,
+                    principal),
+            "approve_release" => new ToolCallFailure(
+                StatusCodes.Status403Forbidden,
+                403,
+                "Release approval requires mcp:tools:release scope"),
+            _ => new ToolCallFailure(
+                StatusCodes.Status400BadRequest,
+                -32602,
+                $"Unknown tool: {toolName}")
         };
     }
     catch (Exception ex)
@@ -200,7 +231,26 @@ async Task<object> HandleToolCall(JsonElement request, ClaimsPrincipal principal
 // Token issuance endpoint (dev only)
 app.MapPost("/auth/token", (DemoTokenService tokenService, [FromBody] TokenRequest req) =>
 {
-    var token = tokenService.GenerateToken(req.ClientId, req.Scopes);
+    if (string.IsNullOrWhiteSpace(req.ClientId) || req.Scopes.Length == 0)
+    {
+        return Results.BadRequest(new { error = "ClientId and at least one scope are required" });
+    }
+
+    var requestedScopes = req.Scopes.Distinct(StringComparer.Ordinal).ToArray();
+    var unknownScopes = requestedScopes.Except(supportedScopes, StringComparer.Ordinal).ToArray();
+    if (unknownScopes.Length > 0)
+    {
+        return Results.BadRequest(new { error = $"Unsupported scope: {string.Join(", ", unknownScopes)}" });
+    }
+
+    if (requestedScopes.Contains("mcp:tools:release") && req.ClientSecret != DemoReleaseSecret)
+    {
+        return Results.Json(
+            new { error = "mcp:tools:release requires the demo release client secret" },
+            statusCode: StatusCodes.Status403Forbidden);
+    }
+
+    var token = tokenService.GenerateToken(req.ClientId, requestedScopes);
     return Results.Ok(new { access_token = token, token_type = "Bearer" });
 });
 
@@ -212,37 +262,58 @@ app.MapGet("/mcp/tools", (ClaimsPrincipal? user) =>
         return Results.Json(new { error = "Unauthorized - mcp:tools scope required" }, statusCode: 401);
     }
 
-    var tools = new object[]
-    {
-        new
-        {
-            name = "get_component_security_profile",
-            description = "Return security profile for a component",
-            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" } }, required = new[] { "componentName" } }
-        },
-        new
-        {
-            name = "check_known_vulnerabilities",
-            description = "Return known vulnerability findings for a component and version",
-            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" }, version = new { type = "string" } }, required = new[] { "componentName", "version" } }
-        },
-        new
-        {
-            name = "generate_security_assessment",
-            description = "Generate deterministic risk assessment",
-            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" }, criticality = new { type = "string" }, networkExposure = new { type = "string" }, handlesSensitiveData = new { type = "boolean" }, findingCount = new { type = "integer" }, highestSeverity = new { type = "string" } }, required = new[] { "componentName" } }
-        },
-        new
-        {
-            name = "create_release_security_summary",
-            description = "Generate release recommendation based on profile + vulnerabilities",
-            inputSchema = new { type = "object", properties = new { componentName = new { type = "string" }, releaseVersion = new { type = "string" } }, required = new[] { "componentName", "releaseVersion" } }
-        }
-    };
-
-    return Results.Json(new { tools });
+    return Results.Json(new { tools = GetToolDefinitions() });
 }).RequireAuthorization("McpAccess");
 
 app.Run();
 
-record TokenRequest(string ClientId, string[] Scopes);
+object[] GetToolDefinitions() =>
+[
+    new
+    {
+        name = "get_release_status",
+        description = "Get release status for a component version",
+        inputSchema = ComponentVersionSchema()
+    },
+    new
+    {
+        name = "get_dependencies",
+        description = "List dependencies for a component version",
+        inputSchema = ComponentVersionSchema()
+    },
+    new
+    {
+        name = "check_security_vulnerabilities",
+        description = "Check known vulnerabilities for a component version",
+        inputSchema = ComponentVersionSchema()
+    },
+    new
+    {
+        name = "approve_release",
+        description = "Approve release after security review (requires mcp:tools:release)",
+        inputSchema = ComponentVersionSchema()
+    }
+];
+
+object ComponentVersionSchema() => new
+{
+    type = "object",
+    properties = new
+    {
+        component = new { type = "string" },
+        version = new { type = "string" }
+    },
+    required = new[] { "component", "version" }
+};
+
+object JsonRpcError(int id, int code, string message) => new
+{
+    jsonrpc = "2.0",
+    id,
+    error = new { code, message }
+};
+
+record TokenRequest(string ClientId, string[] Scopes, string? ClientSecret = null);
+record ToolCallFailure(int StatusCode, int Code, string Message);
+
+public partial class Program;

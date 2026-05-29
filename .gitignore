@@ -6,6 +6,7 @@ obj/
 launchSettings.json
 appsettings.Development.json
 demo-data.json
+!src/SecureMcpServer/demo-data.json
 *.log
 .env
 secrets.json
