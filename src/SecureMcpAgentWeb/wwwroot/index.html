@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Release Review Agent</title>
+  <link rel="stylesheet" href="/styles.css?v=2">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Secure MCP Agent</p>
+        <h1>Release Review Console</h1>
+      </div>
+      <div class="status-strip">
+        <span id="llmMode">Loading</span>
+        <span id="mcpServer">MCP</span>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="panel controls">
+        <h2>Request</h2>
+        <label for="query">Release question</label>
+        <textarea id="query" rows="5">Can we release AnalyzerService version 2.4.1?</textarea>
+
+        <div class="scenario-grid" aria-label="Demo scenarios">
+          <button type="button" data-query="Can we release AnalyzerService version 2.4.1?">Ready</button>
+          <button type="button" data-query="Can we release PaymentGateway version 5.8.0?">Blocked</button>
+          <button type="button" data-query="Approve AnalyzerService version 2.4.1 for production release.">Approve</button>
+        </div>
+
+        <fieldset>
+          <legend>Mode</legend>
+          <label class="radio-row">
+            <input type="radio" name="approvalMode" value="standard" checked>
+            <span>Standard token</span>
+          </label>
+          <label class="radio-row">
+            <input type="radio" name="approvalMode" value="privileged">
+            <span>Privileged demo token</span>
+          </label>
+        </fieldset>
+
+        <button id="runReview" class="primary" type="button">Run Review</button>
+      </aside>
+
+      <section class="results">
+        <div class="verdict-band" id="verdictBand">
+          <p class="eyebrow">Verdict</p>
+          <h2 id="verdict">Awaiting review</h2>
+          <p id="summary">Choose a scenario or enter a release request.</p>
+        </div>
+
+        <div class="grid-two">
+          <section class="panel">
+            <h2>Intent</h2>
+            <dl class="intent-list">
+              <div><dt>Component</dt><dd id="component">-</dd></div>
+              <div><dt>Version</dt><dd id="version">-</dd></div>
+              <div><dt>Source</dt><dd id="intentSource">-</dd></div>
+              <div><dt>Confidence</dt><dd id="confidence">-</dd></div>
+            </dl>
+          </section>
+
+          <section class="panel">
+            <h2>Recommendation</h2>
+            <p id="recommendation">-</p>
+          </section>
+        </div>
+
+        <section class="panel">
+          <h2>Tool Trace</h2>
+          <div id="toolTrace" class="tool-trace"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Raw Response</h2>
+          <pre id="rawResponse">{}</pre>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="/app.js?v=2"></script>
+</body>
+</html>

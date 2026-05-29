@@ -1,13 +1,13 @@
 # Secure C# MCP Agent Demo - Architecture
 
-Version: 1.1  
+Version: 1.2  
 Audience: Security engineers and .NET architects  
 Date: May 2026  
 Status: Demo / educational
 
 ## Executive Summary
 
-This project demonstrates a secure-by-default shape for a small MCP-style release-assessment server and a rule-based console client. It is built with .NET 8 and focuses on auth boundaries, scope checks, consistent tool discovery, auditable tool calls, and negative-path tests.
+This project demonstrates a secure-by-default shape for a small MCP-style release-assessment server, a rule-based console client, and an end-to-end web release-review agent. It is built with .NET 8 and focuses on auth boundaries, scope checks, consistent tool discovery, auditable tool calls, optional LLM-assisted reasoning, and negative-path tests.
 
 The system is not production-ready identity infrastructure. The token issuer and secrets are intentionally local demo mechanisms.
 
@@ -20,7 +20,43 @@ The system is not production-ready identity infrastructure. The token issuer and
 | `ReleaseDataService` | Serves release status, dependencies, vulnerability data, and release approval | checks `mcp:tools:release` before approval |
 | `SecurityAuditLogger` | Logs auth success/failure, tool calls, and tool errors | structured application logs |
 | `SecureMcpClient` | Console client with a simple rule-based planner | obtains token and delegates auth decisions to the server |
+| `SecureMcpAgentWeb` | Browser UI and agent API for release review demos | calls MCP tools through JWT-scoped requests |
+| `OpenAiReleasePlanner` | Optional OpenAI Responses API client for intent parsing and summary generation | no direct release authority; falls back deterministically |
 | `demo-data.json` | Self-contained release data for deterministic responses | copied to build output |
+
+## End-to-End Flow
+
+```text
+Browser UI
+  |
+  | POST /api/review { query, approvalMode }
+  v
+SecureMcpAgentWeb
+  |
+  | optional OpenAI call for intent parsing
+  | fallback parser if OPENAI_API_KEY is absent
+  v
+Structured release intent
+  |
+  | POST /auth/token
+  | POST /mcp/messages tools/call
+  v
+SecureMcpServer
+  |
+  | get_release_status
+  | get_dependencies
+  | check_security_vulnerabilities
+  | approve_release when eligible
+  v
+SecureMcpAgentWeb
+  |
+  | optional OpenAI summary
+  | deterministic verdict from tool results
+  v
+Browser verdict, recommendation, tool trace, raw JSON
+```
+
+The model helps parse and explain. It does not bypass MCP authorization, and it does not determine whether release approval actually succeeded.
 
 ## Endpoint Model
 
@@ -30,6 +66,8 @@ The system is not production-ready identity infrastructure. The token issuer and
 | `/mcp/sse` | GET | SSE endpoint advertisement | requires `mcp:tools` |
 | `/mcp/messages` | POST | JSON-RPC `tools/list` and `tools/call` | requires `mcp:tools`; `approve_release` also requires `mcp:tools:release` |
 | `/mcp/tools` | GET | Declarative tool discovery | requires `mcp:tools` |
+| `/api/config` | GET | Web agent runtime mode | none |
+| `/api/review` | POST | End-to-end release review orchestration | calls MCP server with scoped JWT |
 
 The SSE endpoint advertises `/mcp/messages` without embedding the bearer token in the URL. Clients should continue to send the token in the `Authorization` header.
 
@@ -94,7 +132,7 @@ Current demo releases:
 
 The server tests use `WebApplicationFactory<Program>` to exercise the actual ASP.NET Core pipeline. Coverage includes token issuance constraints, release-scope authorization, tool discovery consistency, and demo data responses.
 
-The client tests cover the rule-based planner's known and fallback parsing paths.
+The client tests cover the rule-based planner's known and fallback parsing paths. The web-agent tests cover the deterministic parser and static UI smoke path.
 
 Run:
 
@@ -112,5 +150,6 @@ For real deployment:
 4. Add rate limiting, request-size limits, and stricter JSON-RPC validation.
 5. Store audit logs in a tamper-resistant sink.
 6. Add end-to-end tests for the intended MCP transport and client behavior.
+7. Replace demo fallback parsing with a reviewed production planner if this is adapted outside a demo.
 
 This architecture document is for educational and demonstration purposes only.

@@ -4,7 +4,7 @@
 << /Type /Font /Subtype /Type1 /BaseFont /Courier >>
 endobj
 2 0 obj
-<< /Length 2606 >>
+<< /Length 2475 >>
 stream
 BT
 /F1 9 Tf
@@ -14,7 +14,7 @@ BT
 T*
 () Tj
 T*
-(Version: 1.1) Tj
+(Version: 1.2) Tj
 T*
 (Audience: Security engineers and .NET architects) Tj
 T*
@@ -30,11 +30,13 @@ T*
 T*
 (This project demonstrates a secure-by-default shape for a small MCP-style release-) Tj
 T*
-(  assessment server and a rule-based console client. It is built with .NET 8 and focuses) Tj
+(  assessment server, a rule-based console client, and an end-to-end web release-review) Tj
 T*
-(  on auth boundaries, scope checks, consistent tool discovery, auditable tool calls, and) Tj
+(  agent. It is built with .NET 8 and focuses on auth boundaries, scope checks, consistent) Tj
 T*
-(  negative-path tests.) Tj
+(  tool discovery, auditable tool calls, optional LLM-assisted reasoning, and negative-path) Tj
+T*
+(  tests.) Tj
 T*
 () Tj
 T*
@@ -72,9 +74,99 @@ T*
 T*
 (  and delegates auth decisions to the server |) Tj
 T*
+(| `SecureMcpAgentWeb` | Browser UI and agent API for release review demos | calls MCP) Tj
+T*
+(  tools through JWT-scoped requests |) Tj
+T*
+(| `OpenAiReleasePlanner` | Optional OpenAI Responses API client for intent parsing and) Tj
+T*
+(  summary generation | no direct release authority; falls back deterministically |) Tj
+T*
 (| `demo-data.json` | Self-contained release data for deterministic responses | copied to) Tj
 T*
 (  build output |) Tj
+T*
+() Tj
+T*
+(End-to-End Flow) Tj
+T*
+() Tj
+T*
+(```text) Tj
+T*
+(Browser UI) Tj
+T*
+(  |) Tj
+T*
+(  | POST /api/review { query, approvalMode }) Tj
+T*
+(  v) Tj
+T*
+(SecureMcpAgentWeb) Tj
+T*
+(  |) Tj
+T*
+(  | optional OpenAI call for intent parsing) Tj
+T*
+(  | fallback parser if OPENAI_API_KEY is absent) Tj
+T*
+(  v) Tj
+T*
+(Structured release intent) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Length 2347 >>
+stream
+BT
+/F1 9 Tf
+50 790 Td
+12 TL
+(  |) Tj
+T*
+(  | POST /auth/token) Tj
+T*
+(  | POST /mcp/messages tools/call) Tj
+T*
+(  v) Tj
+T*
+(SecureMcpServer) Tj
+T*
+(  |) Tj
+T*
+(  | get_release_status) Tj
+T*
+(  | get_dependencies) Tj
+T*
+(  | check_security_vulnerabilities) Tj
+T*
+(  | approve_release when eligible) Tj
+T*
+(  v) Tj
+T*
+(SecureMcpAgentWeb) Tj
+T*
+(  |) Tj
+T*
+(  | optional OpenAI summary) Tj
+T*
+(  | deterministic verdict from tool results) Tj
+T*
+(  v) Tj
+T*
+(Browser verdict, recommendation, tool trace, raw JSON) Tj
+T*
+(```) Tj
+T*
+() Tj
+T*
+(The model helps parse and explain. It does not bypass MCP authorization, and it does not) Tj
+T*
+(  determine whether release approval actually succeeded.) Tj
 T*
 () Tj
 T*
@@ -98,6 +190,12 @@ T*
 T*
 (| `/mcp/tools` | GET | Declarative tool discovery | requires `mcp:tools` |) Tj
 T*
+(| `/api/config` | GET | Web agent runtime mode | none |) Tj
+T*
+(| `/api/review` | POST | End-to-end release review orchestration | calls MCP server with) Tj
+T*
+(  scoped JWT |) Tj
+T*
 () Tj
 T*
 (The SSE endpoint advertises `/mcp/messages` without embedding the bearer token in the) Tj
@@ -113,19 +211,7 @@ T*
 (`/mcp/tools` and `tools/list` expose the same four implemented tools:) Tj
 T*
 () Tj
-ET
-endstream
-endobj
-3 0 obj
-<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
-endobj
-4 0 obj
-<< /Length 1901 >>
-stream
-BT
-/F1 9 Tf
-50 790 Td
-12 TL
+T*
 (| Tool | Purpose | Required arguments | Additional scope |) Tj
 T*
 (| --- | --- | --- | --- |) Tj
@@ -143,7 +229,19 @@ T*
 (| `approve_release` | Approves a release and returns an approval ticket | `component`,) Tj
 T*
 (  `version` | `mcp:tools:release` |) Tj
-T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 1646 >>
+stream
+BT
+/F1 9 Tf
+50 790 Td
+12 TL
 () Tj
 T*
 (Auth Flow) Tj
@@ -229,19 +327,7 @@ T*
 (  file is not present, it falls back to an embedded default payload so the demo remains) Tj
 T*
 (  runnable during local experiments.) Tj
-ET
-endstream
-endobj
-5 0 obj
-<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
-endobj
-6 0 obj
-<< /Length 1329 >>
-stream
-BT
-/F1 9 Tf
-50 790 Td
-12 TL
+T*
 () Tj
 T*
 (Current demo releases:) Tj
@@ -259,14 +345,28 @@ T*
 () Tj
 T*
 (The server tests use `WebApplicationFactory<Program>` to exercise the actual ASP.NET) Tj
-T*
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 1214 >>
+stream
+BT
+/F1 9 Tf
+50 790 Td
+12 TL
 (  Core pipeline. Coverage includes token issuance constraints, release-scope) Tj
 T*
 (  authorization, tool discovery consistency, and demo data responses.) Tj
 T*
 () Tj
 T*
-(The client tests cover the rule-based planner's known and fallback parsing paths.) Tj
+(The client tests cover the rule-based planner's known and fallback parsing paths. The) Tj
+T*
+(  web-agent tests cover the deterministic parser and static UI smoke path.) Tj
 T*
 () Tj
 T*
@@ -302,35 +402,41 @@ T*
 T*
 (6. Add end-to-end tests for the intended MCP transport and client behavior.) Tj
 T*
+(7. Replace demo fallback parsing with a reviewed production planner if this is adapted) Tj
+T*
+(  outside a demo.) Tj
+T*
 () Tj
 T*
 (This architecture document is for educational and demonstration purposes only.) Tj
 ET
 endstream
 endobj
-7 0 obj
-<< /Type /Page /Parent 8 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
-endobj
-8 0 obj
-<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R] /Count 3 >>
-endobj
 9 0 obj
-<< /Type /Catalog /Pages 8 0 R >>
+<< /Type /Page /Parent 10 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R] /Count 4 >>
+endobj
+11 0 obj
+<< /Type /Catalog /Pages 10 0 R >>
 endobj
 xref
-0 10
+0 12
 0000000000 65535 f 
 0000000015 00000 n 
 0000000083 00000 n 
-0000002741 00000 n 
-0000002867 00000 n 
-0000004820 00000 n 
-0000004946 00000 n 
-0000006327 00000 n 
-0000006453 00000 n 
-0000006522 00000 n 
+0000002610 00000 n 
+0000002737 00000 n 
+0000005136 00000 n 
+0000005263 00000 n 
+0000006961 00000 n 
+0000007088 00000 n 
+0000008354 00000 n 
+0000008481 00000 n 
+0000008557 00000 n 
 trailer
-<< /Size 10 /Root 9 0 R >>
+<< /Size 12 /Root 11 0 R >>
 startxref
-6571
+8608
 %%EOF
