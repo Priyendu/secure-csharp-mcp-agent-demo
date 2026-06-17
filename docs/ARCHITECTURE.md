@@ -1,21 +1,25 @@
 # Secure C# MCP Agent Demo - Architecture
 
-Version: 1.3
+Version: 1.4
 Audience: Security engineers and .NET architects  
-Date: May 2026  
+Date: June 2026  
 Status: Demo / educational
 
 ## Executive Summary
 
-This project demonstrates a secure-by-default shape for a small MCP-style release-assessment server, a rule-based console client, and an end-to-end web release-review agent. It is built with .NET 8 and focuses on auth boundaries, scope checks, consistent tool discovery, auditable tool calls, optional LLM-assisted reasoning, and negative-path tests.
+This project demonstrates a secure-by-default shape for a small MCP-style release-assessment server, a rule-based console client, an end-to-end web release-review agent, and a native C# WPF desktop demo application. It is built with .NET 8 and focuses on auth boundaries, scope checks, consistent tool discovery, auditable tool calls, optional LLM-assisted reasoning, negative-path tests, and shared data models across multiple clients.
+
+A new `SecureMcpShared` class library provides canonical models (`ReleaseIntent`, `ToolCallResult`, `ReviewResult`, `TokenResponse`) so that the web agent and desktop demo (and future clients) share the same contracts without duplication.
 
 The system is not production-ready identity infrastructure. The token issuer and secrets are intentionally local demo mechanisms.
 
 ## Diagram Artifacts
 
-- `docs/architecture-diagrams.drawio` contains the editable Draw.io source with system overview, release review sequence, and authorization boundary diagrams.
+- `docs/architecture-diagrams.drawio` contains the editable Draw.io source with system overview, release review sequence, and authorization boundary diagrams (focused on the core MCP server + web agent + LLM flow).
 - `docs/ARCHITECTURE.pdf` is the polished PDF version generated from the same architecture model.
 - `tools/generate_architecture_assets.py` regenerates both diagram artifacts.
+
+**Note:** The visual diagrams pre-date the addition of `SecureMcpDesktopDemo` and `SecureMcpShared`. They continue to accurately represent the core authorization model, tool contract, and server behavior. The desktop demo and shared library are additional consumers of the same MCP surface and data models. Update the Draw.io source manually or extend the generator script if a full visual refresh is required.
 
 ## Components
 
@@ -27,66 +31,86 @@ The system is not production-ready identity infrastructure. The token issuer and
 | `SecurityAuditLogger` | Logs auth success/failure, tool calls, and tool errors | structured application logs |
 | `SecureMcpClient` | Console client with a simple rule-based planner | obtains token and delegates auth decisions to the server |
 | `SecureMcpAgentWeb` | Browser UI and agent API for release review demos | calls MCP tools through JWT-scoped requests |
+| `SecureMcpDesktopDemo` | Native WPF desktop application providing rich end-to-end demo experience (scenarios, token lab, live traces, protocol logs, manual tool explorer). Can launch the MCP server as a child process. | re-uses the same JWT + scoped MCP client contract |
+| `SecureMcpShared` | Small class library providing shared models (`ReleaseIntent`, `ToolCallResult`, `ReviewResult`, `TokenResponse`) | ensures consistent contracts between web agent and desktop (and future clients) |
 | `OpenAiReleasePlanner` | Optional OpenAI Responses API client for intent parsing and summary generation | no direct release authority; falls back deterministically |
 | `demo-data.json` | Self-contained release data for deterministic responses | copied to build output |
 
+## Shared Models and Desktop Client
+
+`SecureMcpShared` is a small, dependency-light class library that defines the core data contracts used by agent-style clients:
+
+- `ReleaseIntent` — parsed component + version (with confidence and source)
+- `ToolCallResult` — tool name, HTTP status, status string, JSON result/error, and the raw wire response (for auditing and UI display)
+- `ReviewResult` — full orchestrated outcome (verdict, summary, recommendation, intent, approval mode, LLM mode, list of `ToolCallResult`)
+- `TokenResponse` — the shape returned by the demo `/auth/token` endpoint
+
+Both `SecureMcpAgentWeb` (via its `McpToolClient` and `ReleaseReviewOrchestrator`) and `SecureMcpDesktopDemo` (via `McpDesktopClient` and `DesktopReviewOrchestrator`) now depend on `SecureMcpShared`. This eliminates duplication and guarantees that every client sees identical shapes for intent, tool traces, and review outcomes.
+
+`SecureMcpDesktopDemo` is a .NET 8 WPF application that provides a complete, self-contained end-to-end demonstration experience:
+- One-click launch/stop of the real `SecureMcpServer` (as a child process on the conventional demo port)
+- Token acquisition lab (standard vs. privileged with the demo secret)
+- Scenario buttons matching the original demo (Ready → 403, Approve → success, Blocked)
+- Live updating tool trace with color-coded HTTP statuses
+- Protocol log (every JSON-RPC request/response) and captured server audit output
+- Manual tool call explorer for arbitrary experimentation
+- JWT claim decoder to make scopes visible
+- Deterministic local parser and orchestration (no external LLM required)
+
+The desktop app deliberately re-uses the exact same MCP contract and shared models so that any new security or protocol change is automatically visible across all clients.
+
 ## End-to-End Flow
 
+Multiple clients exercise the same secure MCP contract:
+
+- Console client (`SecureMcpClient`)
+- Web agent + browser UI (`SecureMcpAgentWeb`)
+- Native C# WPF desktop demo (`SecureMcpDesktopDemo`) — can optionally launch the server process for a true single-application E2E experience
+
 ```text
-Browser UI
-  |
-  | POST /api/review { query, approvalMode }
-  v
-SecureMcpAgentWeb
-  |
-  | optional OpenAI call for intent parsing
-  | fallback parser if OPENAI_API_KEY is absent
-  v
-Structured release intent
+Client (Browser UI / Desktop WPF / Console)
   |
   | POST /auth/token
-  | POST /mcp/messages tools/call
+  | POST /mcp/messages tools/call  (or direct in desktop)
   v
 SecureMcpServer
   |
   | get_release_status
   | get_dependencies
   | check_security_vulnerabilities
-  | approve_release when eligible
+  | approve_release when eligible (enforces mcp:tools:release)
   v
-SecureMcpAgentWeb
+Client
   |
-  | optional OpenAI summary
-  | deterministic verdict from tool results
-  v
-Browser verdict, recommendation, tool trace, raw JSON
+  | deterministic (or LLM-assisted) verdict + tool trace + raw responses
 ```
 
-The model helps parse and explain. It does not bypass MCP authorization, and it does not determine whether release approval actually succeeded.
+The (optional) planner in the web agent or desktop only parses intent and synthesizes narrative. All authorization decisions and data come from the MCP server. The desktop demo also includes a built-in `ServerLauncher` that can start `SecureMcpServer` as a child process on the conventional demo port.
 
 ## Release Review Sequence
 
 ```text
-Browser UI         Agent API          Planner/LLM         MCP Server         Release Tools
-    |                  |                  |                  |                  |
-    | POST /api/review |                  |                  |                  |
-    |----------------->|                  |                  |                  |
-    |                  | parse intent     |                  |                  |
-    |                  |----------------->|                  |                  |
-    |                  | structured JSON  |                  |                  |
-    |                  |<-----------------|                  |                  |
-    |                  | request JWT      |                  |                  |
-    |                  |------------------------------------>|                  |
-    |                  | tool calls       |                  |                  |
-    |                  |------------------------------------>| execute tools    |
-    |                  |                  |                  |----------------->|
-    |                  | tool trace       |                  |                  |
-    |                  |<------------------------------------|                  |
-    | verdict + trace  |                  |                  |                  |
-    |<-----------------|                  |                  |                  |
+Client (Browser / Desktop WPF)   Agent/Orchestrator   Planner/LLM   MCP Server   Release Tools
+    |                              |                   |             |            |
+    | run review (query + mode)    |                   |             |            |
+    |----------------------------->|                   |             |            |
+    |                              | parse intent      |             |            |
+    |                              |------------------>|             |            |
+    |                              | structured intent |             |            |
+    |                              |<------------------|             |            |
+    |                              | request JWT + tool calls        |            |
+    |                              |-------------------------------->|            |
+    |                              |                               | execute      |
+    |                              |                               |------------->|
+    |                              | tool trace + auth result      |<-------------|
+    |                              |<--------------------------------|            |
+    | verdict + trace + raw JSON   |                   |             |            |
+    |<-----------------------------|                   |             |            |
 ```
 
-Approval is attempted only when status is `ready` and no vulnerability findings are returned. Whether approval succeeds is determined by the MCP server's `mcp:tools:release` scope check.
+The same sequence is driven by the native WPF `SecureMcpDesktopDemo` (via `DesktopReviewOrchestrator` + `McpDesktopClient`) and the web agent. Approval is attempted only when status is `ready` and no vulnerability findings are returned. Whether approval succeeds is determined by the MCP server's `mcp:tools:release` scope check.
+
+The desktop client can also launch the server locally via its `ServerLauncher` for a complete single-process demo experience.
 
 ## Endpoint Model
 
@@ -164,11 +188,21 @@ The server tests use `WebApplicationFactory<Program>` to exercise the actual ASP
 
 The client tests cover the rule-based planner's known and fallback parsing paths. The web-agent tests cover the deterministic parser and static UI smoke path.
 
+The desktop demo is exercised manually via its rich UI (scenarios, manual calls, token modes, live traces) but shares the same model and client logic as the tested web agent through `SecureMcpShared`.
+
 Run:
 
 ```bash
 dotnet test --configuration Release
 ```
+
+For the desktop experience:
+
+```bash
+dotnet run --project src/SecureMcpDesktopDemo
+```
+
+(Click "Start Secure MCP Server" inside the app, then use the scenario buttons or manual explorer.)
 
 ## Production Hardening
 
