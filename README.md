@@ -116,7 +116,7 @@ Example privileged request:
 
 ## Verification
 
-```bash
+```powershell
 dotnet restore
 dotnet build --configuration Release
 dotnet test --configuration Release
@@ -132,6 +132,37 @@ The test suite covers:
 - client planner parsing behavior
 - web agent parser behavior
 - web UI static smoke test
+
+### Testing the Architecture Diagrams & Generator
+
+After editing `tools/generate_architecture_assets.py` or the docs:
+
+```powershell
+python tools/generate_architecture_assets.py
+```
+
+- Open `docs/architecture-diagrams.drawio` in https://app.diagrams.net (or VS Code with Draw.io extension).
+- Review the updated `docs/ARCHITECTURE.pdf` (it includes new cards for Desktop Demo and Shared Models).
+- The script updates both the editable diagram and the PDF.
+
+### Building and Manually Testing the Desktop Demo
+
+```powershell
+dotnet build --configuration Release
+dotnet run --project src/SecureMcpDesktopDemo
+```
+
+Inside the WPF app:
+
+1. Click **Start Secure MCP Server** (it launches the real server as a child process).
+2. Use the scenario buttons (Ready / Approve / Blocked) or enter a custom query.
+3. Switch between Standard and Privileged tokens to see 403 vs. success on `approve_release`.
+4. Try the Manual Tool Call panel.
+5. Check the Protocol Log and Server Log tabs.
+
+First-time HTTPS note (Windows): Run `dotnet dev-certs https --trust` once in an elevated prompt if you see certificate warnings.
+
+The Desktop project also builds as part of the full solution: `dotnet build --configuration Release`.
 
 ## Folder Structure
 
