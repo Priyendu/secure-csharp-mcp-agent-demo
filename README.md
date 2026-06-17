@@ -18,6 +18,7 @@ This repository is intentionally educational. It demonstrates secure patterns an
 - Demo release data in `src/SecureMcpServer/demo-data.json`.
 - Security audit logging for auth events, tool calls, and tool errors.
 - End-to-end web UI for release review demos.
+- **New: Full native C# WPF desktop application** (`SecureMcpDesktopDemo`) that provides a self-contained E2E experience — start the secure server from the UI, acquire tokens, run the exact review scenarios, view live traces, protocol logs, and manually exercise every tool and authorization boundary.
 - Agent API that can use OpenAI for intent parsing and summary generation.
 - Deterministic fallback mode when no `OPENAI_API_KEY` is configured.
 - Negative auth and tool-flow tests for 401/403 behavior.
@@ -64,6 +65,35 @@ set OPENAI_MODEL=gpt-4o-mini
 ```
 
 If `OPENAI_API_KEY` is omitted, the web agent still runs with deterministic parsing and summaries.
+
+## Native C# WPF Desktop Demo (Best for End-to-End Experience)
+
+This is a **complete, self-contained C# UI** that demonstrates every security and MCP concept from one native Windows application:
+
+- One-click start/stop of the real SecureMcpServer (launches as child process on https://localhost:5001)
+- Acquire **Standard** (`mcp:tools`) or **Privileged** (`mcp:tools + mcp:tools:release`) tokens directly from the UI
+- Three canonical scenarios + free-form queries + manual tool explorer
+- Live tool trace with HTTP status highlighting (green success, red 403 for the famous negative path)
+- Protocol log (every JSON-RPC request/response) + captured server audit output
+- Local deterministic intent parser (same logic as the web agent)
+- JWT claim decoder so you can see the scopes the server will enforce
+- Full step-by-step mode so you can pause and inspect each authorization decision
+
+**Run it:**
+
+```bash
+dotnet build
+# Then run the WPF project (from Visual Studio, or):
+dotnet run --project src/SecureMcpDesktopDemo
+```
+
+Inside the app:
+1. Click **Start Secure MCP Server**
+2. Click one of the three scenario buttons (or type a query and choose Standard/Privileged)
+3. Watch the trace, verdict, and raw responses update in real time
+4. Use the Manual Tool Call section to experiment with any token + any tool
+
+The desktop app makes the authorization boundary extremely visible: run "Ready" with a standard token and you will see the `approve_release` call return 403. Switch to Privileged and the same call succeeds.
 
 ## Demo Token Rules
 
