@@ -7,14 +7,14 @@ endobj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
 3 0 obj
-<< /Length 2363 >>
+<< /Length 3463 >>
 stream
 q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
 BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
-BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Professional architecture overview - Web UI, LLM agent, secured MCP tool server) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 11 Tf 42.0 530.0 Td (Professional architecture overview - Web UI, Native WPF Desktop, LLM agent, secured MCP tool server) Tj ET
 q 0.0431 0.4196 0.4353 rg 42 516 758 3 re f Q
 BT 0.0941 0.1255 0.1373 rg /F2 34 Tf 42.0 468.0 Td (Architecture Document) Tj ET
-BT 0.3765 0.4392 0.4235 rg /F1 13 Tf 42.0 435.0 Td (Version 1.3 | May 2026 | Demo / educational) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 13 Tf 42.0 435.0 Td (Version 1.4 | June 2026 | Demo / educational) Tj ET
 q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 250.0 230.0 115.0 re B Q
 q 0.0431 0.4196 0.4353 rg 42.0 357.0 230.0 8 re f Q
 BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 335.0 Td (Design Goals) Tj ET
@@ -36,6 +36,20 @@ BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 584.0 335.0 Td (Demo Modes) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 315.0 Td (AnalyzerService: ready) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 303.0 Td (PaymentGateway: blocked by CVE) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 584.0 291.0 Td (Privileged mode: approval ticket) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 120.0 230.0 110.0 re B Q
+q 0.0118 0.4118 0.6314 rg 42.0 222.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 200.0 Td (Native Desktop Demo) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 180.0 Td (WPF C# E2E client) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 168.0 Td (Launches MCP server) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 156.0 Td (Live traces + logs) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 144.0 Td (Manual tool explorer) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 306.0 120.0 230.0 110.0 re B Q
+q 0.0863 0.3961 0.2039 rg 306.0 222.0 230.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 320.0 200.0 Td (Shared Models) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 180.0 Td (SecureMcpShared lib) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 168.0 Td (ReleaseIntent / ToolCallResult) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 156.0 Td (ReviewResult / TokenResponse) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 320.0 144.0 Td (Used by Web + Desktop) Tj ET
 BT 0.0941 0.1255 0.1373 rg /F1 12 Tf 42.0 145.0 Td (The web agent may call OpenAI for structured intent parsing and final narrative, but every verdict is grounded in MCP tool results.) Tj ET
 endstream
 endobj
@@ -43,7 +57,7 @@ endobj
 << /Type /Page /Parent 13 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
 endobj
 5 0 obj
-<< /Length 3767 >>
+<< /Length 4649 >>
 stream
 q 0.9569 0.9451 0.9176 rg 0 0 842 595 re f Q
 BT 0.0941 0.1255 0.1373 rg /F2 18 Tf 42.0 552.0 Td (Secure C# MCP Agent Demo) Tj ET
@@ -56,12 +70,24 @@ BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 405.0 Td (Release question) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 393.0 Td (Verdict) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 381.0 Td (Tool trace) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 369.0 Td (Raw JSON) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 42.0 240.0 150.0 95.0 re B Q
+q 0.0118 0.4118 0.6314 rg 42.0 327.0 150.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 56.0 305.0 Td (Desktop WPF) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 285.0 Td (Native C# client) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 273.0 Td (Starts server) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 56.0 261.0 Td (Live traces + JWT lab) Tj ET
 q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 250.0 360.0 180.0 95.0 re B Q
 q 0.0431 0.4196 0.4353 rg 250.0 447.0 180.0 8 re f Q
 BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 264.0 425.0 Td (SecureMcpAgentWeb) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 405.0 Td (POST /api/review) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 393.0 Td (Planner orchestration) Tj ET
 BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 381.0 Td (Deterministic verdict) Tj ET
+q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 250.0 240.0 180.0 95.0 re B Q
+q 0.0863 0.3961 0.2039 rg 250.0 327.0 180.0 8 re f Q
+BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 264.0 305.0 Td (SecureMcpShared) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 285.0 Td (Shared models lib) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 273.0 Td (Intent / ToolCallResult) Tj ET
+BT 0.3765 0.4392 0.4235 rg /F1 9 Tf 264.0 261.0 Td (ReviewResult) Tj ET
 q 1.0000 1.0000 1.0000 rg 0.8510 0.8353 0.7922 RG 1.0 w 488.0 440.0 160.0 80.0 re B Q
 q 0.1451 0.4510 0.3059 rg 488.0 512.0 160.0 8 re f Q
 BT 0.0941 0.1255 0.1373 rg /F2 12 Tf 502.0 490.0 Td (OpenAI Responses API) Tj ET
@@ -259,19 +285,19 @@ xref
 0000000015 00000 n 
 0000000085 00000 n 
 0000000160 00000 n 
-0000002575 00000 n 
-0000002712 00000 n 
-0000006531 00000 n 
-0000006668 00000 n 
-0000010027 00000 n 
-0000010164 00000 n 
-0000013770 00000 n 
-0000013908 00000 n 
-0000016468 00000 n 
-0000016607 00000 n 
-0000016691 00000 n 
+0000003675 00000 n 
+0000003812 00000 n 
+0000008513 00000 n 
+0000008650 00000 n 
+0000012009 00000 n 
+0000012146 00000 n 
+0000015752 00000 n 
+0000015890 00000 n 
+0000018450 00000 n 
+0000018589 00000 n 
+0000018673 00000 n 
 trailer
 << /Size 15 /Root 14 0 R >>
 startxref
-16742
+18724
 %%EOF

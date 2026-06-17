@@ -85,22 +85,30 @@ def drawio_page(page_id: str, name: str, title: str, boxes: list[Box], edges: li
 
 def write_drawio() -> None:
     overview_boxes = [
-        Box("user", "Security / Release User\nBrowser", 70, 190, 170, 100, "#EAF3F3", "#0B6B6F"),
-        Box("ui", "SecureMcpAgentWeb\nRelease Review UI\n/api/review", 330, 150, 230, 160, "#FFFFFF", "#0B6B6F"),
-        Box("llm", "OpenAI Responses API\nOptional intent parsing\nOptional synthesis", 650, 80, 230, 130, "#F7FBFA", "#25734E"),
-        Box("fallback", "Deterministic fallback\nOffline parser + summary", 650, 260, 230, 120, "#FFF8EB", "#9A5B00"),
-        Box("mcp", "SecureMcpServer\nJWT + scopes\n/mcp/messages", 970, 150, 210, 160, "#FFFFFF", "#0B6B6F"),
-        Box("tools", "Release tools\nstatus\ndependencies\nvulnerabilities\napproval", 970, 390, 210, 150, "#F7FBFA", "#25734E"),
-        Box("data", "demo-data.json\nAnalyzerService ready\nPaymentGateway blocked", 650, 470, 230, 120, "#FFF8EB", "#9A5B00"),
+        Box("user", "Security / Release User\nBrowser or Desktop", 70, 190, 170, 100, "#EAF3F3", "#0B6B6F"),
+        Box("ui", "SecureMcpAgentWeb\nRelease Review UI\n/api/review", 330, 120, 230, 140, "#FFFFFF", "#0B6B6F"),
+        Box("desktop", "SecureMcpDesktopDemo\nNative WPF C# Client\n(starts server + rich UI)", 330, 300, 230, 130, "#E0F2FE", "#0369A1"),
+        Box("shared", "SecureMcpShared\nShared Models\n(ReleaseIntent, ToolCallResult,\nReviewResult, TokenResponse)", 580, 200, 260, 110, "#F0FDF4", "#166534"),
+        Box("llm", "OpenAI Responses API\nOptional intent parsing\nOptional synthesis", 880, 80, 200, 110, "#F7FBFA", "#25734E"),
+        Box("fallback", "Deterministic fallback\nOffline parser + summary", 880, 220, 200, 100, "#FFF8EB", "#9A5B00"),
+        Box("mcp", "SecureMcpServer\nJWT + scopes\n/mcp/messages", 1120, 150, 180, 140, "#FFFFFF", "#0B6B6F"),
+        Box("tools", "Release tools\nstatus\ndependencies\nvulnerabilities\napproval", 1120, 340, 180, 130, "#F7FBFA", "#25734E"),
+        Box("data", "demo-data.json\nAnalyzerService ready\nPaymentGateway blocked", 880, 400, 200, 100, "#FFF8EB", "#9A5B00"),
     ]
     overview_edges = [
         ("e1", "user", "ui", "release question", False),
+        ("e1b", "user", "desktop", "release question", False),
         ("e2", "ui", "llm", "if OPENAI_API_KEY", True),
         ("e3", "ui", "fallback", "fallback mode", True),
-        ("e4", "ui", "mcp", "JWT + JSON-RPC tool calls", False),
+        ("e3b", "desktop", "fallback", "always (deterministic)", True),
+        ("e4", "ui", "shared", "uses shared models", False),
+        ("e4b", "desktop", "shared", "uses shared models", False),
+        ("e4c", "ui", "mcp", "JWT + JSON-RPC tool calls", False),
+        ("e4d", "desktop", "mcp", "JWT + JSON-RPC tool calls\n(or launches server)", False),
         ("e5", "mcp", "tools", "dispatch", False),
         ("e6", "tools", "data", "read demo releases", False),
         ("e7", "mcp", "ui", "tool trace + auth result", False),
+        ("e7b", "mcp", "desktop", "tool trace + auth result", False),
     ]
     sequence_boxes = [
         Box("browser", "Browser UI", 80, 120, 150, 70, "#EAF3F3", "#0B6B6F"),
@@ -281,19 +289,23 @@ def write_pdf() -> None:
     pdf = Pdf()
 
     c: list[str] = []
-    header(c, "Professional architecture overview - Web UI, LLM agent, secured MCP tool server")
+    header(c, "Professional architecture overview - Web UI, Native WPF Desktop, LLM agent, secured MCP tool server")
     text(c, 42, 468, "Architecture Document", 34, True, INK)
-    text(c, 42, 435, "Version 1.3 | May 2026 | Demo / educational", 13, False, MUTED)
+    text(c, 42, 435, "Version 1.4 | June 2026 | Demo / educational", 13, False, MUTED)
     card(c, 42, 250, 230, 115, "Design Goals", ["Demonstrable release review UI", "LLM-assisted parsing and synthesis", "MCP server remains source of truth", "Authorization is visible and testable"], TEAL)
     card(c, 306, 250, 230, 115, "Security Boundary", ["The model cannot approve a release", "approve_release requires mcp:tools:release", "All tool calls are auditable"], GREEN)
     card(c, 570, 250, 230, 115, "Demo Modes", ["AnalyzerService: ready", "PaymentGateway: blocked by CVE", "Privileged mode: approval ticket"], AMBER)
+    card(c, 42, 120, 230, 110, "Native Desktop Demo", ["WPF C# E2E client", "Launches MCP server", "Live traces + logs", "Manual tool explorer"], (3, 105, 161))
+    card(c, 306, 120, 230, 110, "Shared Models", ["SecureMcpShared lib", "ReleaseIntent / ToolCallResult", "ReviewResult / TokenResponse", "Used by Web + Desktop"], (22, 101, 52))
     text(c, 42, 145, "The web agent may call OpenAI for structured intent parsing and final narrative, but every verdict is grounded in MCP tool results.", 12, False, INK)
     pdf.page(c)
 
     c = []
     header(c, "System overview")
     card(c, 42, 360, 150, 95, "Browser UI", ["Release question", "Verdict", "Tool trace", "Raw JSON"], TEAL)
+    card(c, 42, 240, 150, 95, "Desktop WPF", ["Native C# client", "Starts server", "Live traces + JWT lab"], (3, 105, 161))
     card(c, 250, 360, 180, 95, "SecureMcpAgentWeb", ["POST /api/review", "Planner orchestration", "Deterministic verdict"], TEAL)
+    card(c, 250, 240, 180, 95, "SecureMcpShared", ["Shared models lib", "Intent / ToolCallResult", "ReviewResult"], (22, 101, 52))
     card(c, 488, 440, 160, 80, "OpenAI Responses API", ["Optional structured outputs", "Intent + summary"], GREEN)
     card(c, 488, 300, 160, 80, "Fallback Planner", ["Offline parser", "Deterministic summary"], AMBER)
     card(c, 706, 360, 150, 95, "SecureMcpServer", ["JWT validation", "Scope checks", "MCP tools"], TEAL)

@@ -138,20 +138,21 @@ The test suite covers:
 ```text
 secure-csharp-mcp-agent-demo/
 |-- src/
-|   |-- SecureMcpServer/
-|   |   |-- Program.cs
-|   |   |-- demo-data.json
-|   |   |-- Security/
-|   |   `-- Tools/
-|   |-- SecureMcpClient/
-|   `-- SecureMcpAgentWeb/
+|   |-- SecureMcpServer/          # MCP server (JWT, scopes, 4 tools)
+|   |-- SecureMcpClient/          # Simple console client
+|   |-- SecureMcpAgentWeb/        # Web UI + agent (with optional OpenAI)
+|   |-- SecureMcpDesktopDemo/     # Native WPF C# desktop E2E demo (best for interactive demos)
+|   `-- SecureMcpShared/          # Shared models (ReleaseIntent, ToolCallResult, ReviewResult, TokenResponse)
 |-- tests/
-|-- docs/
+|-- docs/                         # Architecture docs + diagrams
+|-- tools/                        # generate_architecture_assets.py
 |-- .github/workflows/
 |-- DEMO.md
 |-- README.md
 `-- SECURITY.md
 ```
+
+**Desktop Demo note:** `SecureMcpDesktopDemo` is a complete C# WPF app that can start the server, acquire tokens, run scenarios, show live traces/logs, and manually call tools — all demonstrating the full security model in one native application. It shares models via `SecureMcpShared` with the web agent.
 
 ## Production Hardening Notes
 
