@@ -12,9 +12,10 @@
     <PublishSingleFile Condition="'$(Configuration)' == 'Release'">false</PublishSingleFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <!-- No external NuGet packages required for the core demo.
+  <ItemGroup><!-- No external NuGet packages required for the core demo.
          Uses built-in System.Text.Json, HttpClient, Process, etc. -->
+  
+    <ProjectReference Include="..\SecureMcpShared\SecureMcpShared.csproj" />
   </ItemGroup>
 
 </Project>

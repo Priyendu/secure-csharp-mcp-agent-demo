@@ -1,4 +1,5 @@
 using System.Text.Json;
+using SecureMcpShared.Models;
 
 namespace SecureMcpAgentWeb.Services;
 
@@ -13,12 +14,12 @@ public sealed class ReleaseReviewOrchestrator
         _mcpToolClient = mcpToolClient;
     }
 
-    public async Task<ReleaseReviewResult> ReviewAsync(ReleaseReviewRequest request, CancellationToken cancellationToken)
+    public async Task<ReviewResult> ReviewAsync(ReleaseReviewRequest request, CancellationToken cancellationToken)
     {
         var privileged = string.Equals(request.ApprovalMode, "privileged", StringComparison.OrdinalIgnoreCase);
         var intent = await _planner.ParseIntentAsync(request.Query, cancellationToken);
         var token = await _mcpToolClient.GetTokenAsync(privileged, cancellationToken);
-        var traces = new List<ToolTrace>
+        var traces = new List<ToolCallResult>
         {
             await _mcpToolClient.CallToolAsync(token, "get_release_status", intent.Component, intent.Version, cancellationToken),
             await _mcpToolClient.CallToolAsync(token, "get_dependencies", intent.Component, intent.Version, cancellationToken),
@@ -51,7 +52,7 @@ public sealed class ReleaseReviewOrchestrator
             ? BuildRecommendation(verdict)
             : synthesis.Recommendation;
 
-        return new ReleaseReviewResult(
+        return new ReviewResult(
             verdict,
             summary,
             recommendation,
@@ -61,7 +62,7 @@ public sealed class ReleaseReviewOrchestrator
             traces);
     }
 
-    private static string DetermineVerdict(string status, int vulnerabilityCount, ToolTrace? approvalTrace)
+    private static string DetermineVerdict(string status, int vulnerabilityCount, ToolCallResult? approvalTrace)
     {
         if (!string.Equals(status, "ready", StringComparison.OrdinalIgnoreCase) || vulnerabilityCount > 0)
         {
@@ -81,7 +82,7 @@ public sealed class ReleaseReviewOrchestrator
         return "ready";
     }
 
-    private static string BuildSummary(string verdict, ReleaseIntent intent, string status, int vulnerabilityCount, IReadOnlyList<ToolTrace> traces)
+    private static string BuildSummary(string verdict, ReleaseIntent intent, string status, int vulnerabilityCount, IReadOnlyList<ToolCallResult> traces)
     {
         var approval = traces.LastOrDefault(trace => trace.Tool == "approve_release");
         return verdict switch

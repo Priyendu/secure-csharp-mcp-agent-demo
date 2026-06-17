@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>SecureMcpShared</RootNamespace>
+    <AssemblyName>SecureMcpShared</AssemblyName>
+    <Description>Shared models for the Secure MCP Agent demo (ReleaseIntent, ToolCallResult, TokenResponse, ReviewResult, etc.). Used by web agent, desktop demo, and other clients.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Required for JsonPropertyName attributes on DTOs -->
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+</Project>

@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using SecureMcpShared.Models;
 
 namespace SecureMcpAgentWeb.Services;
 
@@ -34,7 +35,7 @@ public sealed class McpToolClient
         return token?.AccessToken ?? throw new InvalidOperationException("MCP token response did not include access_token.");
     }
 
-    public async Task<ToolTrace> CallToolAsync(string token, string tool, string component, string version, CancellationToken cancellationToken)
+    public async Task<ToolCallResult> CallToolAsync(string token, string tool, string component, string version, CancellationToken cancellationToken)
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, "/mcp/messages");
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -58,6 +59,7 @@ public sealed class McpToolClient
         var result = root.TryGetProperty("result", out var resultElement) ? resultElement.Clone() : (JsonElement?)null;
         var error = root.TryGetProperty("error", out var errorElement) ? errorElement.Clone() : (JsonElement?)null;
 
-        return new ToolTrace(tool, status, (int)response.StatusCode, result, error);
+        // Use the shared richer ToolCallResult (includes raw response for traces/auditing)
+        return new ToolCallResult(tool, (int)response.StatusCode, status, result, error, raw);
     }
 }

@@ -1,4 +1,5 @@
 using SecureMcpAgentWeb.Services;
+using SecureMcpShared.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

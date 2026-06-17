@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using SecureMcpShared.Models;
 
 namespace SecureMcpDesktopDemo.Services;
 
@@ -82,7 +83,7 @@ public sealed class McpDesktopClient : IDisposable
     /// Calls one of the four MCP tools using the supplied bearer token.
     /// Returns rich trace information for UI display.
     /// </summary>
-    public async Task<ToolCallResult> CallToolAsync(string token, string toolName, string component, string version, CancellationToken ct = default)
+    public async Task<SecureMcpShared.Models.ToolCallResult> CallToolAsync(string token, string toolName, string component, string version, CancellationToken ct = default)
     {
         var requestId = Random.Shared.Next(10000, 99999);
 
@@ -130,7 +131,7 @@ public sealed class McpDesktopClient : IDisposable
             error = JsonSerializer.SerializeToElement(new { message = rawBody });
         }
 
-        return new ToolCallResult(
+        return new SecureMcpShared.Models.ToolCallResult(
             Tool: toolName,
             HttpStatus: (int)response.StatusCode,
             Status: status,
@@ -164,19 +165,9 @@ public sealed class McpDesktopClient : IDisposable
         _httpClient.Dispose();
     }
 
-    // --- DTOs ---
-
-    private sealed record TokenResponse(
-        [property: JsonPropertyName("access_token")] string? AccessToken,
-        [property: JsonPropertyName("token_type")] string? TokenType);
+    // --- Client-specific DTOs (not shared) ---
 
     public sealed record TokenResult(string? AccessToken, int HttpStatus, string RawResponse);
-
-    public sealed record ToolCallResult(
-        string Tool,
-        int HttpStatus,
-        string Status,
-        JsonElement? Result,
-        JsonElement? Error,
-        string Raw);
+    // ToolCallResult and TokenResponse are now provided by SecureMcpShared.Models
+    // for consistency across web agent, desktop demo, and future clients.
 }

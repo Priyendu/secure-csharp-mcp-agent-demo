@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using SecureMcpShared.Models;
 
 namespace SecureMcpAgentWeb.Services;
 

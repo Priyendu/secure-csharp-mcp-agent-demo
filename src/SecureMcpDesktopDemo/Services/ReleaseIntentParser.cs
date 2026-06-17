@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using SecureMcpShared.Models;
 
 namespace SecureMcpDesktopDemo.Services;
 
@@ -43,10 +44,3 @@ public sealed partial class ReleaseIntentParser
     [GeneratedRegex(@"(?:version|v)\s+(?<version>[0-9]+(?:\.[0-9A-Za-z-]+)+)", RegexOptions.IgnoreCase)]
     private static partial Regex VersionPattern();
 }
-
-public sealed record ReleaseIntent(
-    string Component,
-    string Version,
-    string Intent,
-    double Confidence,
-    string Source);

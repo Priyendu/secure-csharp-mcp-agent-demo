@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SecureMcpDesktopDemo.Services;
+using SecureMcpShared.Models;
 
 namespace SecureMcpDesktopDemo;
 
@@ -401,7 +402,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         RawResponseBox.Text = "";
     }
 
-    private void AddTraceEntry(McpDesktopClient.ToolCallResult trace)
+    private void AddTraceEntry(ToolCallResult trace)
     {
         string summary = trace.Status == "ok"
             ? (trace.Result?.ToString() ?? trace.Raw[..Math.Min(180, trace.Raw.Length)])
@@ -457,7 +458,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         RecommendationText.Text = recommendation;
     }
 
-    private static string? GetStringFromTrace(McpDesktopClient.ToolCallResult trace, string prop)
+    private static string? GetStringFromTrace(ToolCallResult trace, string prop)
     {
         try
         {

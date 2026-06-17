@@ -1,5 +1,5 @@
 using System.Text.Json;
-using SecureMcpDesktopDemo.Services;
+using SecureMcpShared.Models;
 
 namespace SecureMcpDesktopDemo.Services;
 
@@ -26,7 +26,7 @@ public sealed class DesktopReviewOrchestrator
     public async Task<ReviewResult> RunReviewAsync(
         string query,
         bool privileged,
-        Action<McpDesktopClient.ToolCallResult> onToolTrace,
+        Action<ToolCallResult> onToolTrace,
         Action<string> onProtocol,
         CancellationToken ct = default)
     {
@@ -39,13 +39,13 @@ public sealed class DesktopReviewOrchestrator
         if (tokenResult.AccessToken is null)
         {
             onProtocol?.Invoke($"[Orchestrator] Token request failed: HTTP {tokenResult.HttpStatus}");
-            return new ReviewResult("error", "Failed to obtain token from MCP server.", "Check server is running and /auth/token accepts the request.", intent, privileged ? "privileged" : "standard", "N/A", new List<McpDesktopClient.ToolCallResult>());
+            return new ReviewResult("error", "Failed to obtain token from MCP server.", "Check server is running and /auth/token accepts the request.", intent, privileged ? "privileged" : "standard", "N/A", new List<ToolCallResult>());
         }
 
         string token = tokenResult.AccessToken;
         string mode = privileged ? "privileged" : "standard";
 
-        var traces = new List<McpDesktopClient.ToolCallResult>();
+        var traces = new List<ToolCallResult>();
 
         // 3. Always run the three information tools (these only require mcp:tools)
         foreach (var tool in new[] { "get_release_status", "get_dependencies", "check_security_vulnerabilities" })
@@ -86,7 +86,7 @@ public sealed class DesktopReviewOrchestrator
         );
     }
 
-    private static string DetermineVerdict(string status, int vulnerabilityCount, McpDesktopClient.ToolCallResult? approvalTrace)
+    private static string DetermineVerdict(string status, int vulnerabilityCount, ToolCallResult? approvalTrace)
     {
         if (!status.Equals("ready", StringComparison.OrdinalIgnoreCase) || vulnerabilityCount > 0)
             return "blocked";
@@ -100,7 +100,7 @@ public sealed class DesktopReviewOrchestrator
         return "ready";
     }
 
-    private static string BuildSummary(string verdict, ReleaseIntent intent, string status, int vulnerabilityCount, IReadOnlyList<McpDesktopClient.ToolCallResult> traces)
+    private static string BuildSummary(string verdict, ReleaseIntent intent, string status, int vulnerabilityCount, IReadOnlyList<ToolCallResult> traces)
     {
         return verdict switch
         {
@@ -134,15 +134,5 @@ public sealed class DesktopReviewOrchestrator
     }
 }
 
-/// <summary>
-/// Result of a full orchestrated review. ToolCalls use the rich trace type from McpDesktopClient
-/// so the UI can render them uniformly.
-/// </summary>
-public sealed record ReviewResult(
-    string Verdict,
-    string Summary,
-    string Recommendation,
-    ReleaseIntent Intent,
-    string ApprovalMode,
-    string LlmMode,
-    IReadOnlyList<McpDesktopClient.ToolCallResult> ToolCalls);
+// ReviewResult, ReleaseIntent, and ToolCallResult are now provided by SecureMcpShared.Models
+// (no local duplicates).
